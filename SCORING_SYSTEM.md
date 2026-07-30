@@ -1,6 +1,6 @@
 # The CMO Test — Scoring System
 
-Versi rubric: `2026.07-v4`
+Versi rubric: `2026.07-v5`
 
 ## Prinsip
 
@@ -10,14 +10,19 @@ assessment. Setiap nilai harus dapat ditelusuri ke evidence dalam jawaban.
 
 ## Struktur skor
 
-Operating Index menggunakan skala 0–100:
+Self-Assessment Score menggunakan skala 0–100. Setiap case memiliki bobot
+tetap agar total tetap comparable walaupun jumlah case per level berbeda.
 
-- 80% Role Score: kemampuan yang relevan dengan level yang dipilih.
-- 20% The School Bus: raw problem solving yang dibandingkan lintas level.
+| Jalur | Multiple Choice | Written Reasoning | The School Bus | Total |
+|---|---:|---:|---:|---:|
+| Specialist | 20 | 65 | 15 | 100 |
+| Manager | 0 | 85 | 15 | 100 |
+| Head & VP | 0 | 85 | 15 | 100 |
 
-Jumlah pertanyaan tidak mengubah kontribusi dua komponen tersebut. Role Score
-merupakan agregasi evidence dari seluruh role cases, kemudian dibobotkan menurut
-level.
+Pilihan ganda diberi partial credit 0–4 dan dinormalisasi ke bobot case.
+Jawaban tertulis dinilai 0–4 terhadap rubric oleh evaluator AI. The School Bus
+berbobot 15 agar creative problem solving penting, tetapi tidak mendominasi
+marketing judgment.
 
 ## Skala 0–4
 
@@ -32,6 +37,10 @@ level.
 Pilihan ganda memiliki score map 0–4 per opsi. Jawaban tertulis dinilai per
 dimension menggunakan anchor di atas. Jawaban generik tidak otomatis mendapat
 nilai tinggi.
+
+Untuk self-assessment, hasil kandidat menampilkan total score, classification,
+case breakdown, strongest signal, dan focus area. Hasil tidak menampilkan
+jawaban ideal atau rubric lengkap.
 
 Pertanyaan terbuka dinilai dari keputusan dan jejak reasoning yang terlihat:
 kandidat harus membedakan fakta, asumsi, dan hipotesis; memilih prioritas;
