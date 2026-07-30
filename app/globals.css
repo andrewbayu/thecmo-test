@@ -34,7 +34,7 @@ button, textarea { font: inherit; }
 button { color: inherit; }
 
 .site-header {
-  width: min(1424px, calc(100% - 96px));
+  width: min(1240px, calc(100% - clamp(64px, 10vw, 160px)));
   height: 88px;
   margin: 0 auto;
   border-bottom: 1px solid var(--line);
@@ -70,13 +70,14 @@ button { color: inherit; }
 }
 
 .landing {
-  width: min(1424px, calc(100% - 96px));
+  width: min(1240px, calc(100% - clamp(64px, 10vw, 160px)));
   min-height: calc(100vh - 88px);
   margin: 0 auto;
   padding: 68px 0 88px;
 }
 .landing-copy {
-  max-width: 940px;
+  max-width: 920px;
+  margin-inline: auto;
 }
 .landing-copy h1 {
   margin: 25px 0 8px;
@@ -112,7 +113,10 @@ button { color: inherit; }
   font-weight: 700;
   letter-spacing: .08em;
 }
-.track-zone { margin-top: 76px; }
+.track-zone {
+  max-width: 1120px;
+  margin: 76px auto 0;
+}
 .tracks-head {
   padding-bottom: 16px;
   border-bottom: 1px solid var(--line-strong);
@@ -191,7 +195,7 @@ button { color: inherit; }
 .track:hover .arrow { transform: translateX(3px); }
 
 .test-shell {
-  width: min(1120px, calc(100% - 96px));
+  width: min(1040px, calc(100% - clamp(64px, 12vw, 192px)));
   margin: 0 auto;
   padding: 40px 0 100px;
 }
@@ -220,7 +224,7 @@ button { color: inherit; }
 
 .reading-panel {
   min-height: 520px;
-  padding: clamp(38px, 6vw, 72px);
+  padding: clamp(40px, 7vw, 88px);
   border: 1px solid var(--ink);
   border-radius: 2px 2px 0 0;
   background: var(--ink);
@@ -283,7 +287,7 @@ button { color: inherit; }
 }
 
 .response-panel {
-  padding: clamp(38px, 6vw, 72px);
+  padding: clamp(40px, 7vw, 88px);
   border: 1px solid var(--line-strong);
   border-top: 0;
   border-radius: 0 0 2px 2px;
@@ -400,7 +404,7 @@ button { color: inherit; }
 }
 
 .complete {
-  width: min(860px, calc(100% - 96px));
+  width: min(760px, calc(100% - clamp(64px, 12vw, 192px)));
   min-height: calc(100vh - 88px);
   margin: 0 auto;
   padding: clamp(100px, 15vw, 170px) 0 90px;
@@ -429,8 +433,11 @@ button { color: inherit; }
 .complete .continue { margin-left: 0; }
 
 @media (max-width: 900px) {
-  .site-header, .landing, .test-shell, .complete {
-    width: min(100% - 48px, 1120px);
+  .site-header, .landing {
+    width: calc(100% - 64px);
+  }
+  .test-shell, .complete {
+    width: calc(100% - 64px);
   }
   .landing { padding-top: 54px; }
   .landing-copy h1 { font-size: clamp(68px, 15vw, 110px); }
@@ -438,8 +445,8 @@ button { color: inherit; }
 }
 
 @media (max-width: 640px) {
-  .site-header { width: calc(100% - 30px); height: 70px; }
-  .landing, .test-shell, .complete { width: calc(100% - 30px); }
+  .site-header { width: calc(100% - 40px); height: 70px; }
+  .landing, .test-shell, .complete { width: calc(100% - 40px); }
   .landing { min-height: calc(100vh - 70px); padding: 44px 0 64px; }
   .landing-copy h1 { font-size: clamp(58px, 20vw, 82px); }
   .byline { margin-bottom: 34px; }
