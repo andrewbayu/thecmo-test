@@ -6,7 +6,7 @@ import {
 } from "@/lib/scoring";
 
 const expectedCases: Record<TrackId, string[]> = {
-  specialist: ["S2", "S3", "S5", "F1"],
+  specialist: ["S2", "S3", "S5", "S9", "S10", "S11", "F1"],
   manager: ["M2", "M3", "M4", "M8", "F1"],
   head: ["H1", "H2", "H3", "H4", "H7", "F1"],
 };

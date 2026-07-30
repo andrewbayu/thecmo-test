@@ -35,7 +35,7 @@ nilai tinggi.
 
 ## Bobot dimension per level
 
-| Dimension | Operator | Manager | VP/Head/C-level |
+| Dimension | Specialist | Manager | Head & VP |
 |---|---:|---:|---:|
 | Information Selection | 15% | 15% | 15% |
 | Metric / Data Accuracy | 20% | 10% | 5% |
@@ -46,7 +46,7 @@ nilai tinggi.
 | Systems / Cross-Functional Thinking | 5% | 15% | 15% |
 | Belief Updating | 5% | 10% | 10% |
 
-Operator sengaja memberi bobot terbesar pada metric accuracy dan technical
+Specialist sengaja memberi bobot terbesar pada metric accuracy dan technical
 execution. Leadership memberi bobot terbesar pada commercial judgment,
 prioritization, dan systems thinking.
 

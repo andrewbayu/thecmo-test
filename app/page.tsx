@@ -33,9 +33,9 @@ const tracks: {
   {
     id: "specialist",
     number: "01",
-    name: "The Operator Track",
-    level: "Operator / Specialist · 4 pertanyaan",
-    description: "Fokus teknis pada Meta Ads, creative ads, Google Ads, dan problem solving.",
+    name: "The Specialist Track",
+    level: "Specialist · 7 pertanyaan",
+    description: "Fokus pada ads, conversion, creative, dan psikologi marketing.",
   },
   {
     id: "manager",
@@ -47,8 +47,8 @@ const tracks: {
   {
     id: "head",
     number: "03",
-    name: "The Leadership Track",
-    level: "Head, VP & C-level · 6 pertanyaan",
+    name: "The Head & VP Track",
+    level: "Head & VP · 6 pertanyaan",
     description: "Menguji judgment bisnis, alokasi sumber daya, dan operating altitude.",
   },
 ];
@@ -148,9 +148,9 @@ export default function Home() {
             <h1>The CMO Test</h1>
             <p className="byline">by Aditya Bayu</p>
             <p className="intro-copy">
-              Kumpulan studi kasus nyata yang saya gunakan untuk hiring level Head,
-              VP, dan C-level Marketing. Sejauh ini, secara statistik hanya 0,7%
-              kandidat yang lolos.
+              Kumpulan studi kasus nyata yang saya gunakan untuk hiring level
+              Specialist, Manager, Head, dan VP Marketing. Sejauh ini, secara
+              statistik hanya 0,7% kandidat yang lolos.
             </p>
             <p className="intro-copy">
               Semua kasus sudah pernah saya selesaikan sendiri. Artinya, saya

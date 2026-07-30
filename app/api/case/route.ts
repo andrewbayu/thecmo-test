@@ -37,8 +37,8 @@ const schoolBusCase: Case = {
 
 const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
   specialist: {
-    name: "The Operator Track",
-    level: "Operator / Specialist",
+    name: "The Specialist Track",
+    level: "Specialist",
     cases: [
       {
         id: "S1",
@@ -218,6 +218,78 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           type: "write",
           placeholder:
             "Pisahkan tindakan satu jam, satu hari, dan tujuh hari beserta decision gate-nya…",
+        },
+      },
+      {
+        id: "S9",
+        title: "The Conversion Rate Trap",
+        brief:
+          "Conversion rate sebuah landing page naik dari 2,5% menjadi 4,0% setelah tim memasang diskon 25%. Tim menganggap eksperimen ini menang dan ingin menjadikannya always-on.",
+        data: [
+          "Average order value turun 30%.",
+          "Gross margin produk sebelum diskon hanya 42%.",
+          "Jumlah transaksi naik 38%.",
+          "Refund rate naik dari 3% menjadi 9%.",
+          "Repeat purchase cohort diskon lebih rendah dibanding cohort normal.",
+        ],
+        question:
+          "Metric apa yang harus menjadi dasar keputusan sebelum menjadikan diskon ini always-on?",
+        answer: {
+          type: "choice",
+          options: [
+            "Conversion rate karena naik dari 2,5% menjadi 4,0%.",
+            "Contribution margin setelah diskon dan refund, lalu dibandingkan per visitor serta per cohort.",
+            "Jumlah transaksi karena menunjukkan demand meningkat.",
+            "CTR iklan karena menentukan berapa banyak orang masuk ke landing page.",
+          ],
+        },
+      },
+      {
+        id: "S10",
+        title: "Less Friction, Worse Intent",
+        brief:
+          "Form lead dipangkas dari enam field menjadi dua field. Form conversion naik hampir dua kali lipat, tetapi sales mengatakan lead baru jauh lebih sulit dikualifikasi.",
+        data: [
+          "Field jabatan, perusahaan, kebutuhan, dan timeline dihapus.",
+          "Cost per lead turun 41%.",
+          "Qualified lead rate turun dari 32% menjadi 11%.",
+          "Sales response time tidak berubah.",
+          "Mayoritas lead baru memilih jawaban paling cepat dan tidak membalas follow-up.",
+        ],
+        question:
+          "Perubahan mana yang paling tepat berdasarkan conversion dan psikologi commitment?",
+        answer: {
+          type: "choice",
+          options: [
+            "Pertahankan dua field karena conversion rate sudah meningkat.",
+            "Kembalikan semua field sekaligus agar lead malas tersaring.",
+            "Tambahkan kembali satu atau dua high-signal questions dan uji progressive qualification terhadap cost per qualified lead.",
+            "Buat tombol submit lebih besar agar commitment kandidat meningkat.",
+          ],
+        },
+      },
+      {
+        id: "S11",
+        title: "Urgency Without Trust",
+        brief:
+          "Creative dengan countdown “berakhir 10 menit lagi” menghasilkan CTR dan add-to-cart tertinggi. Countdown tersebut kembali ke 10 menit setiap kali halaman dibuka.",
+        data: [
+          "Purchase conversion tidak meningkat.",
+          "Checkout abandonment naik 18%.",
+          "Komentar iklan mulai mempertanyakan keaslian promo.",
+          "Refund dan complaint naik pada cohort creative tersebut.",
+          "Creative berbasis customer proof memiliki CTR lebih rendah tetapi purchase rate lebih tinggi.",
+        ],
+        question:
+          "Keputusan mana yang paling tepat secara psikologi marketing dan performance?",
+        answer: {
+          type: "choice",
+          options: [
+            "Pertahankan countdown karena CTR dan add-to-cart membuktikan urgency bekerja.",
+            "Hentikan false scarcity, gunakan urgency yang nyata dan customer proof, lalu ukur purchase serta refund rate.",
+            "Percepat countdown menjadi lima menit agar fear of missing out lebih kuat.",
+            "Pertahankan creative, tetapi sembunyikan komentar negatif.",
+          ],
         },
       },
     ],
@@ -413,8 +485,8 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
     ],
   },
   head: {
-    name: "The Leadership Track",
-    level: "Head, VP & C-level",
+    name: "The Head & VP Track",
+    level: "Head & VP",
     cases: [
       {
         id: "H1",
@@ -612,7 +684,7 @@ export async function GET(request: NextRequest) {
   }
 
   const selectedCaseIds: Record<string, string[]> = {
-    specialist: ["S2", "S3", "S5"],
+    specialist: ["S2", "S3", "S5", "S9", "S10", "S11"],
     manager: ["M2", "M3", "M4", "M8"],
     head: ["H1", "H2", "H3", "H4", "H7"],
   };

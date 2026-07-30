@@ -78,6 +78,9 @@ export const schoolBusWeights: Record<SchoolBusDimension, number> = {
 export const multipleChoiceScoreMaps: Record<string, number[]> = {
   S2: [0, 1, 4, 2],
   S3: [1, 4, 0, 1],
+  S9: [0, 4, 1, 2],
+  S10: [1, 0, 4, 1],
+  S11: [1, 4, 0, 0],
   M4: [2, 1, 4, 0],
   H1: [1, 4, 0, 2],
   H4: [1, 4, 0, 1],
