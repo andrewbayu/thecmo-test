@@ -37,8 +37,8 @@ const schoolBusCase: Case = {
 
 const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
   specialist: {
-    name: "The Specialist Track",
-    level: "Specialist",
+    name: "The Operator Track",
+    level: "Operator / Specialist",
     cases: [
       {
         id: "S1",
@@ -66,22 +66,25 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
       },
       {
         id: "S2",
-        title: "The 64% Click Drop",
+        title: "Meta Ads: The 64% Click Drop",
         brief:
-          "Outbound clicks turun 64% MoM. Pada saat yang sama, messaging conversations naik 95% dan reservasi naik 16%. Manajer meminta campaign dihentikan karena traffic anjlok.",
+          "Outbound clicks di Meta Ads turun 64% MoM. Pada saat yang sama, messaging conversations naik 95%. Objective campaign berubah dari Traffic menjadi Messaging di pertengahan bulan.",
         data: [
-          "Objective campaign berubah dari Traffic menjadi Messaging di pertengahan bulan.",
           "Link click, outbound click, dan unique outbound click memiliki definisi berbeda.",
-          "Reservasi dicatat manual oleh cabang tanpa atribusi deterministik.",
           "Spend turun 18% dan CPM turun 21%.",
-          "Revenue naik 2%, tetapi periode pembanding memiliki seasonal event.",
+          "Meta link clicks hanya turun 15%.",
+          "Dashboard masih menggunakan outbound clicks sebagai headline metric.",
         ],
         question:
-          "Tuliskan verdict untuk meeting: apa yang sudah diketahui, apa yang belum diketahui, dan audit apa yang harus dilakukan.",
+          "Apa tindakan teknis pertama yang paling tepat?",
         answer: {
-          type: "write",
-          placeholder:
-            "Tulis verdict, batas kesimpulan, dan urutan audit yang akan Anda lakukan…",
+          type: "choice",
+          options: [
+            "Matikan campaign karena outbound clicks turun 64%.",
+            "Kembalikan objective ke Traffic tanpa melihat hasil Messaging.",
+            "Sesuaikan headline metric dengan objective Messaging dan audit definisi link click vs outbound click.",
+            "Naikkan budget karena messaging conversations meningkat.",
+          ],
         },
       },
       {
@@ -98,14 +101,14 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Saat budget B dinaikkan 3×, CPL memburuk 42%.",
         ],
         question:
-          "Keputusan alokasi dan eksperimen mana yang paling masuk akal?",
+          "Creative mana yang memiliki estimasi biaya per sale lebih efisien, dan bagaimana cara scale-nya?",
         answer: {
           type: "choice",
           options: [
-            "Semua budget ke A karena CTR dan CPL terbaik.",
-            "Semua budget ke B karena lead-to-sale tertinggi.",
-            "Scale B bertahap dengan guardrail CAC/sale, sambil mempertahankan A sebagai volume control.",
-            "Bagi rata agar kedua creative mendapat kesempatan yang sama.",
+            "A, karena CPL Rp29.000 selalu lebih penting dari conversion ke sale.",
+            "B, sekitar Rp950.000 per sale; scale bertahap karena datanya masih kecil dan CPL memburuk saat budget dinaikkan.",
+            "A, sekitar Rp580.000 per sale berdasarkan CTR.",
+            "Keduanya sama karena average order value serupa.",
           ],
         },
       },
@@ -132,23 +135,23 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
       },
       {
         id: "S5",
-        title: "Landing Page or Traffic Quality?",
+        title: "Google Ads: Landing Page Drop",
         brief:
-          "CTR dan CPC membaik, tetapi landing page conversion turun dari 6,5% menjadi 2,8%. Tim web menyalahkan traffic; media buyer menyalahkan landing page.",
+          "CTR dan CPC Google Ads membaik, tetapi landing page conversion turun dari 6,5% menjadi 2,8%. Anda perlu menemukan masalah teknisnya sebelum mengubah bidding atau budget.",
         data: [
           "Porsi mobile traffic naik dari 62% menjadi 88%.",
           "Mobile load time memburuk dari 2,9 menjadi 6,8 detik.",
-          "Benefit utama creative tidak muncul di hero landing page.",
-          "Traffic source mix berubah.",
+          "Pesan utama iklan tidak muncul di hero landing page.",
+          "Search term dan targeting tidak berubah signifikan.",
           "Drop terbesar pada form terjadi di field nomor telepon.",
           "Setelah speed diperbaiki, conversion pulih ke 4,4%.",
         ],
         question:
-          "Tuliskan urutan diagnosis dan quick fixes yang akan Anda jalankan dalam 72 jam.",
+          "Tuliskan urutan pengecekan teknis dan tiga quick fixes yang Anda jalankan dalam 72 jam.",
         answer: {
           type: "write",
           placeholder:
-            "Urutkan pemeriksaan, hipotesis, dan tindakan 72 jam pertama…",
+            "Mulai dari device, page speed, message match, form, lalu tindakan yang akan Anda lakukan…",
         },
       },
       {
@@ -608,7 +611,15 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Jalur tidak ditemukan." }, { status: 404 });
   }
 
-  const cases = [...track.cases, schoolBusCase];
+  const selectedCaseIds: Record<string, string[]> = {
+    specialist: ["S2", "S3", "S5"],
+    manager: ["M2", "M3", "M4", "M8"],
+    head: ["H1", "H2", "H3", "H4", "H7"],
+  };
+  const roleCases = track.cases.filter((item) =>
+    selectedCaseIds[trackKey].includes(item.id),
+  );
+  const cases = [...roleCases, schoolBusCase];
   const rawIndex = Number(request.nextUrl.searchParams.get("index") ?? "0");
   const index = Number.isInteger(rawIndex)
     ? Math.min(Math.max(rawIndex, 0), cases.length - 1)

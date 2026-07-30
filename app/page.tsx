@@ -33,22 +33,22 @@ const tracks: {
   {
     id: "specialist",
     number: "01",
-    name: "The Specialist Track",
-    level: "Specialist",
-    description: "Mengukur ketajaman membaca data dan mengambil keputusan taktis.",
+    name: "The Operator Track",
+    level: "Operator / Specialist · 4 pertanyaan",
+    description: "Fokus teknis pada Meta Ads, creative ads, Google Ads, dan problem solving.",
   },
   {
     id: "manager",
     number: "02",
     name: "The Manager Track",
-    level: "Manager",
+    level: "Manager · 5 pertanyaan",
     description: "Menguji kemampuan mengelola trade-off, tim, dan sistem kerja.",
   },
   {
     id: "head",
     number: "03",
     name: "The Leadership Track",
-    level: "Head, VP & C-level",
+    level: "Head, VP & C-level · 6 pertanyaan",
     description: "Menguji judgment bisnis, alokasi sumber daya, dan operating altitude.",
   },
 ];
