@@ -55,9 +55,12 @@ const tracks: {
 
 export default function Home() {
   const [payload, setPayload] = useState<Payload | null>(null);
-  const [choice, setChoice] = useState("");
+  const [choice, setChoice] = useState<number | null>(null);
   const [writing, setWriting] = useState("");
   const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [submissionId, setSubmissionId] = useState("");
   const [complete, setComplete] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -66,18 +69,47 @@ export default function Home() {
     const response = await fetch(`/api/case?track=${track}&index=${index}`);
     const nextPayload = (await response.json()) as Payload;
     setPayload(nextPayload);
-    setChoice("");
+    setChoice(null);
     setWriting("");
     setLoading(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function saveAndContinue() {
+  async function saveAndContinue() {
     if (!payload) return;
-    const value = payload.case.answer.type === "choice" ? choice : writing.trim();
-    setAnswers((current) => ({ ...current, [payload.case.id]: value }));
+    const value =
+      payload.case.answer.type === "choice" ? String(choice) : writing.trim();
+    const nextAnswers = { ...answers, [payload.case.id]: value };
+    setAnswers(nextAnswers);
 
     if (payload.index + 1 >= payload.total) {
+      setSubmitting(true);
+      setSubmitError("");
+      try {
+        const response = await fetch("/api/submissions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            track: payload.track.id,
+            answers: nextAnswers,
+          }),
+        });
+        const result = (await response.json()) as {
+          submissionId?: string;
+          error?: string;
+        };
+        if (!response.ok || !result.submissionId) {
+          throw new Error(result.error ?? "Submission gagal.");
+        }
+        setSubmissionId(result.submissionId);
+      } catch {
+        setSubmitError(
+          "Jawaban belum berhasil disimpan. Periksa koneksi dan coba lagi.",
+        );
+        setSubmitting(false);
+        return;
+      }
+      setSubmitting(false);
       setComplete(true);
       window.scrollTo({ top: 0, behavior: "smooth" });
       return;
@@ -89,15 +121,17 @@ export default function Home() {
   function reset() {
     setPayload(null);
     setComplete(false);
-    setChoice("");
+    setChoice(null);
     setWriting("");
     setAnswers({});
+    setSubmissionId("");
+    setSubmitError("");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   const canContinue =
     payload?.case.answer.type === "choice"
-      ? Boolean(choice)
+      ? choice !== null
       : writing.trim().length >= 40;
 
   return (
@@ -182,15 +216,15 @@ export default function Home() {
               <div className="choices">
                 {payload.case.answer.options.map((option, index) => (
                   <label
-                    className={`choice ${choice === option ? "selected" : ""}`}
+                    className={`choice ${choice === index ? "selected" : ""}`}
                     key={option}
                   >
                     <input
                       type="radio"
                       name="answer"
-                      value={option}
-                      checked={choice === option}
-                      onChange={() => setChoice(option)}
+                      value={index}
+                      checked={choice === index}
+                      onChange={() => setChoice(index)}
                     />
                     <span>{String.fromCharCode(65 + index)}</span>
                     <p>{option}</p>
@@ -211,14 +245,19 @@ export default function Home() {
 
             <button
               className="continue"
-              disabled={!canContinue || loading}
+              disabled={!canContinue || loading || submitting}
               onClick={saveAndContinue}
             >
-              {payload.index + 1 === payload.total
-                ? "Selesaikan jalur"
-                : "Lanjut ke kasus berikutnya"}
+              {submitting
+                ? "Menyimpan jawaban…"
+                : payload.index + 1 === payload.total
+                  ? "Selesaikan jalur"
+                  : "Lanjut ke kasus berikutnya"}
               <span>→</span>
             </button>
+            {submitError && (
+              <p className="submit-error" role="alert">{submitError}</p>
+            )}
           </section>
         </div>
       )}
@@ -228,10 +267,15 @@ export default function Home() {
           <p className="eyebrow">{payload.track.name.toUpperCase()}</p>
           <h1>Selesai.</h1>
           <p>
-            Anda sudah menjawab {Object.keys(answers).length + 1} kasus. Tidak ada
+            Anda sudah menjawab {Object.keys(answers).length} kasus. Tidak ada
             skor instan—jawaban yang kuat dinilai dari diagnosis, kualitas
             keputusan, dan kemampuan melihat trade-off.
           </p>
+          {submissionId && (
+            <p className="submission-reference">
+              Referensi submission: <strong>{submissionId}</strong>
+            </p>
+          )}
           <button className="continue" onClick={reset}>
             Pilih jalur lain <span>→</span>
           </button>

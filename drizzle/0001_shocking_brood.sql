@@ -1,0 +1,2 @@
+CREATE INDEX `assessment_submissions_status_created_idx` ON `assessment_submissions` (`status`,`created_at`);--> statement-breakpoint
+CREATE INDEX `assessment_submissions_track_created_idx` ON `assessment_submissions` (`track`,`created_at`);

@@ -292,6 +292,13 @@ button { color: inherit; }
   cursor: pointer;
 }
 .continue:disabled { opacity: .25; cursor: not-allowed; }
+.submit-error {
+  margin: 14px 0 0;
+  color: #8a1c1c;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: right;
+}
 
 .complete {
   width: min(760px, calc(100% - 44px));
@@ -312,6 +319,11 @@ button { color: inherit; }
   color: var(--gray);
   font-size: 13px;
   line-height: 1.75;
+}
+.complete .submission-reference {
+  margin-top: 18px;
+  font-size: 10px;
+  overflow-wrap: anywhere;
 }
 .complete .continue { margin-left: 0; }
 

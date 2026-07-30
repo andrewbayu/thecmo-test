@@ -97,12 +97,14 @@ mengoreksi kesalahan tersebut.
 
 ## Evaluation flow
 
-1. Pilihan ganda dinilai otomatis dengan score map yang tersimpan server-side.
-2. Reviewer menandai evidence pada jawaban tertulis dan memberi skor 0–4 per
+1. Saat jalur selesai, seluruh jawaban disimpan sebagai satu submission dengan
+   reference ID dan rubric version.
+2. Pilihan ganda dinilai otomatis dengan score map yang tersimpan server-side.
+3. Reviewer menandai evidence pada jawaban tertulis dan memberi skor 0–4 per
    dimension yang applicable.
-3. Calibrator memeriksa critical miss, konsistensi antar-case, dan confidence.
-4. Sistem menghitung Role Score, School Bus Score, dan Operating Index.
-5. Manual override diperbolehkan, tetapi wajib memiliki reason code dan
+4. Calibrator memeriksa critical miss, konsistensi antar-case, dan confidence.
+5. Sistem menghitung Role Score, School Bus Score, dan Operating Index.
+6. Manual override diperbolehkan, tetapi wajib memiliki reason code dan
    identitas reviewer.
 
 Rubric, score map, dan benchmark tidak boleh dikirim ke browser kandidat.
