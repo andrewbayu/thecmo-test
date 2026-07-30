@@ -94,8 +94,17 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 
 ## AI Self-Assessment Scoring
 
-Instant scoring for written answers uses Gemini by default and keeps the API
-key server-side. Configure these variables in the deployment environment:
+Instant scoring for written answers uses deterministic rubric matching. It does
+not require an API key: multiple-choice answers use fixed answer maps and each
+written answer is checked against case-specific evidence indicators.
+
+The result is immediate and consistent, but it cannot fully recognise a strong
+idea expressed without the rubric's expected concepts. Gemini and OpenRouter
+remain available as an optional future feedback layer; they are not used to
+determine the current self-assessment score.
+
+If you later want to enable that feedback layer, configure these variables in
+the deployment environment:
 
 ```bash
 EVALUATOR_PROVIDER=gemini
