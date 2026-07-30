@@ -19,7 +19,7 @@ export type SchoolBusDimension =
   | "executionClarity"
   | "criticalAwareness";
 
-export const scoringVersion = "2026.07-v4";
+export const scoringVersion = "2026.07-v5";
 
 export const commonScale = {
   0: "Miss — tidak memahami inti masalah atau keputusan tidak relevan.",
