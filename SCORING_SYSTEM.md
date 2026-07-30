@@ -1,0 +1,108 @@
+# The CMO Test — Scoring System
+
+Versi rubric: `2026.07-v1`
+
+## Prinsip
+
+Scoring mengukur kualitas keputusan, bukan panjang jawaban atau kemiripan kata
+dengan benchmark. Kandidat tidak melihat rubric, jawaban ideal, atau skor selama
+assessment. Setiap nilai harus dapat ditelusuri ke evidence dalam jawaban.
+
+## Struktur skor
+
+Operating Index menggunakan skala 0–100:
+
+- 80% Role Score: kemampuan yang relevan dengan level yang dipilih.
+- 20% The School Bus: raw problem solving yang dibandingkan lintas level.
+
+Jumlah pertanyaan tidak mengubah kontribusi dua komponen tersebut. Role Score
+merupakan agregasi evidence dari seluruh role cases, kemudian dibobotkan menurut
+level.
+
+## Skala 0–4
+
+| Skor | Interpretasi |
+|---|---|
+| 0 | Miss — tidak memahami inti masalah atau keputusan tidak relevan. |
+| 1 | Surface — menangkap gejala, tetapi reasoning masih dangkal. |
+| 2 | Analytical — menggunakan data dengan benar dan menemukan sebagian causal chain. |
+| 3 | Strategic — memahami trade-off, threshold, dan downstream implication. |
+| 4 | Operator — diagnosis, keputusan, eksekusi, asumsi, dan feedback loop terintegrasi. |
+
+Pilihan ganda memiliki score map 0–4 per opsi. Jawaban tertulis dinilai per
+dimension menggunakan anchor di atas. Jawaban generik tidak otomatis mendapat
+nilai tinggi.
+
+## Bobot dimension per level
+
+| Dimension | Operator | Manager | VP/Head/C-level |
+|---|---:|---:|---:|
+| Information Selection | 15% | 15% | 15% |
+| Metric / Data Accuracy | 20% | 10% | 5% |
+| Problem Framing | 15% | 15% | 15% |
+| Technical / Execution Judgment | 20% | 10% | 5% |
+| Commercial Judgment | 10% | 15% | 20% |
+| Prioritization & Resource Allocation | 10% | 15% | 15% |
+| Systems / Cross-Functional Thinking | 5% | 15% | 15% |
+| Belief Updating | 5% | 10% | 10% |
+
+Operator sengaja memberi bobot terbesar pada metric accuracy dan technical
+execution. Leadership memberi bobot terbesar pada commercial judgment,
+prioritization, dan systems thinking.
+
+## The School Bus
+
+| Dimension | Bobot |
+|---|---:|
+| Boundary Definition | 20% |
+| Decomposition | 20% |
+| Measurement Design | 20% |
+| Error Awareness | 15% |
+| Validation | 15% |
+| Constraint Adaptation | 10% |
+
+## Classification
+
+| Operating Index | Classification |
+|---:|---|
+| <40 | Below Role Readiness |
+| 40–54 | Developing |
+| 55–69 | Role-Capable with Supervision |
+| 70–79 | Ready |
+| 80–87 | Strong |
+| 88–93 | Senior / Next-Level Signal |
+| 94+ | Exceptional / Cross-Level Operator |
+
+Rekomendasi hiring internal:
+
+- 88+: Strong Advance
+- 80–87: Advance
+- 70–79: Review / Hold
+- <70: Do Not Advance
+
+Threshold 88 digunakan sebagai standar ketat The CMO Test. Persentase kelulusan
+historis 0,7% tetap harus divalidasi terhadap cohort baru; angka tersebut tidak
+digunakan untuk memaksa distribusi skor.
+
+## Critical misses
+
+Critical miss adalah kesalahan yang membuat kandidat belum aman menjalankan
+role, misalnya mengambil keputusan sebelum memvalidasi constraint utama,
+mengabaikan capacity/cash risk, atau menawarkan metode yang melanggar batas
+kasus.
+
+Satu unresolved critical miss membatasi hasil akhir maksimum di 69. Reviewer
+dapat menyelesaikan flag hanya jika ada evidence lain yang secara eksplisit
+mengoreksi kesalahan tersebut.
+
+## Evaluation flow
+
+1. Pilihan ganda dinilai otomatis dengan score map yang tersimpan server-side.
+2. Reviewer menandai evidence pada jawaban tertulis dan memberi skor 0–4 per
+   dimension yang applicable.
+3. Calibrator memeriksa critical miss, konsistensi antar-case, dan confidence.
+4. Sistem menghitung Role Score, School Bus Score, dan Operating Index.
+5. Manual override diperbolehkan, tetapi wajib memiliki reason code dan
+   identitas reviewer.
+
+Rubric, score map, dan benchmark tidak boleh dikirim ke browser kandidat.
