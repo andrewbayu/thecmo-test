@@ -27,9 +27,9 @@ test("server-renders The CMO Test landing page", async () => {
 
   const html = await response.text();
   assert.match(html, /<title>The CMO Test — Aditya Bayu<\/title>/i);
-  assert.match(html, /The Specialist Track/);
-  assert.match(html, /The Manager Track/);
-  assert.match(html, /The Head &amp; VP Track/);
+  assert.match(html, /<strong>Specialist<\/strong>/);
+  assert.match(html, /<strong>Manager<\/strong>/);
+  assert.match(html, /<strong>Head &amp; VP<\/strong>/);
   assert.match(html, /0,7% kandidat yang lolos/);
   assert.doesNotMatch(html, /codex-preview|Building your site|react-loading-skeleton/i);
 });

@@ -33,22 +33,22 @@ const tracks: {
   {
     id: "specialist",
     number: "01",
-    name: "The Specialist Track",
-    level: "Specialist · 7 pertanyaan",
+    name: "Specialist",
+    level: "7 kasus",
     description: "Fokus pada ads, conversion, creative, dan psikologi marketing.",
   },
   {
     id: "manager",
     number: "02",
-    name: "The Manager Track",
-    level: "Manager · 5 pertanyaan",
+    name: "Manager",
+    level: "5 kasus",
     description: "Menguji kemampuan mengelola trade-off, tim, dan sistem kerja.",
   },
   {
     id: "head",
     number: "03",
-    name: "The Head & VP Track",
-    level: "Head & VP · 6 pertanyaan",
+    name: "Head & VP",
+    level: "6 kasus",
     description: "Menguji judgment bisnis, alokasi sumber daya, dan operating altitude.",
   },
 ];
@@ -148,34 +148,41 @@ export default function Home() {
             <h1>The CMO Test</h1>
             <p className="byline">by Aditya Bayu</p>
             <p className="intro-copy">
-              Kumpulan studi kasus nyata yang saya gunakan untuk hiring level
-              Specialist, Manager, Head, dan VP Marketing. Sejauh ini, secara
-              statistik hanya 0,7% kandidat yang lolos.
+              <strong>Hanya 0,7% kandidat yang lolos.</strong> Kumpulan studi kasus
+              nyata yang saya gunakan untuk hiring Specialist, Manager, Head, dan
+              VP Marketing. Semua kasus sudah pernah saya selesaikan sendiri—saya
+              menggunakan standar yang sama untuk mengukur kandidat.
             </p>
-            <p className="intro-copy">
-              Semua kasus sudah pernah saya selesaikan sendiri. Artinya, saya
-              menggunakan standar yang sama untuk mengukur kandidat. Silakan coba
-              untuk melihat seberapa jauh kemampuan Anda.
-            </p>
+            <div className="assessment-facts" aria-label="Informasi assessment">
+              <span>4–6 ROLE CASES</span>
+              <span>1 FINAL CASE</span>
+              <span>EVIDENCE-BASED</span>
+            </div>
           </div>
 
-          <div className="track-list" aria-label="Pilih jalur ujian">
-            {tracks.map((track) => (
-              <button
-                className="track"
-                key={track.id}
-                onClick={() => loadCase(track.id, 0)}
-                disabled={loading}
-              >
-                <span className="track-number">{track.number}</span>
-                <span className="track-copy">
-                  <small>{track.level}</small>
-                  <strong>{track.name}</strong>
-                  <span>{track.description}</span>
-                </span>
-                <span className="arrow">→</span>
-              </button>
-            ))}
+          <div className="track-zone">
+            <div className="tracks-head">
+              <h2>Pilih level assessment</h2>
+              <span>Pilih dengan jujur</span>
+            </div>
+            <div className="track-list" aria-label="Pilih jalur ujian">
+              {tracks.map((track) => (
+                <button
+                  className="track"
+                  key={track.id}
+                  onClick={() => loadCase(track.id, 0)}
+                  disabled={loading}
+                >
+                  <span className="track-number">{track.number}</span>
+                  <span className="track-copy">
+                    <strong>{track.name}</strong>
+                    <span>{track.description}</span>
+                  </span>
+                  <span className="track-count">{track.level}</span>
+                  <span className="arrow">→</span>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
       )}
