@@ -1,6 +1,6 @@
 # The CMO Test — Scoring System
 
-Versi rubric: `2026.07-v3`
+Versi rubric: `2026.07-v4`
 
 ## Prinsip
 
