@@ -19,7 +19,7 @@ export type SchoolBusDimension =
   | "executionClarity"
   | "criticalAwareness";
 
-export const scoringVersion = "2026.07-v2";
+export const scoringVersion = "2026.07-v3";
 
 export const commonScale = {
   0: "Miss — tidak memahami inti masalah atau keputusan tidak relevan.",
@@ -74,27 +74,64 @@ export const schoolBusWeights: Record<SchoolBusDimension, number> = {
 };
 
 export const multipleChoiceScoreMaps: Record<string, number[]> = {
-  S2: [0, 1, 4, 2],
-  S3: [1, 4, 0, 1],
-  S9: [0, 4, 1, 2],
-  S10: [1, 0, 4, 1],
-  S11: [1, 4, 0, 0],
-  M4: [2, 1, 4, 0],
-  H1: [1, 4, 0, 2],
-  H4: [1, 4, 0, 1],
+  S2: [2, 2, 4, 1],
+  S3: [2, 4, 1, 2],
+  S10: [2, 2, 4, 2],
+  M4: [2, 3, 4, 2],
+  H4: [3, 4, 2, 3],
 };
 
 export const writtenRubrics = {
   S5: {
-    dimensions: ["metricAccuracy", "technicalJudgment", "prioritization"],
+    dimensions: [
+      "informationSelection",
+      "metricAccuracy",
+      "technicalJudgment",
+      "prioritization",
+      "beliefUpdating",
+    ],
     highSignals: [
-      "Memeriksa segmentasi device sebelum mengubah bidding.",
-      "Menghubungkan mobile load time dengan penurunan conversion.",
-      "Memeriksa message match dan drop-off per field.",
-      "Mengurutkan quick fix dan measurement setelah perubahan.",
+      "Memisahkan fakta, hipotesis, dan informasi yang masih perlu diuji.",
+      "Memprioritaskan mobile performance dan form friction berdasarkan besar perubahan.",
+      "Mengalokasikan empat jam developer pada perubahan dengan expected value tertinggi.",
+      "Menetapkan bukti atau threshold yang dapat mengubah urutan tindakan.",
     ],
     criticalMisses: [
       "Menaikkan budget tanpa memeriksa tracking, device, atau landing page.",
+    ],
+  },
+  S9: {
+    dimensions: [
+      "metricAccuracy",
+      "problemFraming",
+      "commercialJudgment",
+      "beliefUpdating",
+    ],
+    highSignals: [
+      "Tidak menyamakan kenaikan conversion rate dengan kemenangan bisnis.",
+      "Membangun perbandingan contribution margin per visitor setelah diskon dan refund.",
+      "Mempertimbangkan cohort value atau repeat purchase, bukan hanya transaksi awal.",
+      "Menyebut data atau threshold yang dapat membalikkan keputusan.",
+    ],
+    criticalMisses: [
+      "Menyatakan eksperimen menang hanya karena conversion atau transaksi meningkat.",
+    ],
+  },
+  S11: {
+    dimensions: [
+      "problemFraming",
+      "technicalJudgment",
+      "commercialJudgment",
+      "systemsThinking",
+    ],
+    highSignals: [
+      "Membedakan attention metric dari purchase dan post-purchase outcome.",
+      "Menjelaskan false scarcity sebagai pemicu urgency sekaligus perusak trust.",
+      "Mengusulkan urgency yang nyata atau customer proof sebagai hipotesis pengganti.",
+      "Mengukur dampak sampai purchase, refund, complaint, atau repeat behavior.",
+    ],
+    criticalMisses: [
+      "Mempertahankan manipulasi yang terbukti meningkatkan complaint tanpa mitigasi.",
     ],
   },
   M2: {
@@ -126,6 +163,7 @@ export const writtenRubrics = {
       "Memisahkan containment, recovery, dan structural fix.",
       "Menetapkan owner, leading indicator, dan decision gate.",
       "Tidak menyamakan pemulihan qualified leads dengan pemulihan sales.",
+      "Memperbarui diagnosis setelah informasi hari ke-10 dan menghentikan tindakan yang tidak lagi relevan.",
     ],
     criticalMisses: ["Membuat daftar aktivitas tanpa sequencing atau owner."],
   },
@@ -141,6 +179,23 @@ export const writtenRubrics = {
       "Menyebut metrik, owner, dan target 90 hari.",
     ],
     criticalMisses: ["Merekomendasikan akselerasi tanpa membahas kas atau margin."],
+  },
+  H1: {
+    dimensions: [
+      "problemFraming",
+      "commercialJudgment",
+      "prioritization",
+      "systemsThinking",
+    ],
+    highSignals: [
+      "Memberi keputusan yang tegas terhadap target, bukan sekadar meminta lebih banyak data.",
+      "Membangun allowable acquisition cost dari unit economics dan capacity.",
+      "Membedakan kenaikan CPL dari penurunan kualitas pertumbuhan.",
+      "Mengusulkan KPI dan validasi incrementality yang dapat dipahami board.",
+    ],
+    criticalMisses: [
+      "Menerima atau memotong target CPL tanpa menghubungkannya ke economics dan downstream outcome.",
+    ],
   },
   H3: {
     dimensions: [
