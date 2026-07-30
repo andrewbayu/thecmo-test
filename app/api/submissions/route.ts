@@ -4,7 +4,7 @@ import {
   scoringVersion,
   type TrackId,
 } from "@/lib/scoring";
-import { evaluateAssessment } from "@/lib/ai-evaluator";
+import { evaluateRuleBasedAssessment } from "@/lib/self-assessment";
 
 const expectedCases: Record<TrackId, string[]> = {
   specialist: ["S2", "S3", "S5", "S9", "S10", "S11", "F1"],
@@ -54,21 +54,10 @@ export async function POST(request: Request) {
       multipleChoiceMaxPoints += 4;
     }
 
-    let assessmentResult = null;
-    let scoringUnavailable = false;
-
-    try {
-      assessmentResult = await evaluateAssessment({
-        track: payload.track,
-        answers: cleanAnswers,
-      });
-    } catch (error) {
-      const message = error instanceof Error ? error.message : "Unknown error";
-      if (message !== "AI_SCORING_NOT_CONFIGURED") {
-        console.error("assessment_ai_scoring_failed", { message });
-      }
-      scoringUnavailable = true;
-    }
+    const assessmentResult = evaluateRuleBasedAssessment({
+      track: payload.track,
+      answers: cleanAnswers,
+    });
 
     const id = crypto.randomUUID();
     const { getDb } = await import("@/db");
@@ -79,20 +68,20 @@ export async function POST(request: Request) {
       answers: JSON.stringify(cleanAnswers),
       multipleChoicePoints,
       multipleChoiceMaxPoints,
-      status: assessmentResult ? "scored" : "pending_review",
+      status: "scored",
       scoringVersion,
-      reviewerScores: assessmentResult ? JSON.stringify(assessmentResult) : null,
-      criticalMisses: assessmentResult?.criticalMisses ?? 0,
-      operatingIndex: assessmentResult?.totalScore ?? null,
-      classification: assessmentResult?.classification ?? null,
+      reviewerScores: JSON.stringify(assessmentResult),
+      criticalMisses: assessmentResult.criticalMisses,
+      operatingIndex: assessmentResult.totalScore,
+      classification: assessmentResult.classification,
     });
 
     return Response.json(
       {
         submissionId: id,
-        status: assessmentResult ? "scored" : "pending_review",
+        status: "scored",
         result: assessmentResult,
-        scoringUnavailable,
+        scoringUnavailable: false,
       },
       { status: 201 },
     );
