@@ -205,14 +205,16 @@ export default function Home() {
             <h1>{payload.case.title}</h1>
             <p className="brief">{payload.case.brief}</p>
 
-            <div className="data-block">
-              <p className="eyebrow">DATA YANG TERSEDIA</p>
-              <ul>
-                {payload.case.data.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
+            {payload.case.data.length > 0 && (
+              <div className="data-block">
+                <p className="eyebrow">DATA YANG TERSEDIA</p>
+                <ul>
+                  {payload.case.data.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </section>
 
           <section className="response-panel">
