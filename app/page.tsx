@@ -23,6 +23,26 @@ type Payload = {
   total: number;
 };
 
+type AssessmentResult = {
+  totalScore: number;
+  rawScore: number;
+  classification: string;
+  summary: string;
+  strongestSignal: string;
+  focusArea: string;
+  criticalMisses: number;
+  multipleChoiceScore: number;
+  multipleChoiceMaxScore: number;
+  cases: Array<{
+    id: string;
+    title: string;
+    score: number;
+    maxScore: number;
+    strength: string;
+    gap: string;
+  }>;
+};
+
 const tracks: {
   id: TrackId;
   number: string;
@@ -61,6 +81,9 @@ export default function Home() {
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const [submissionId, setSubmissionId] = useState("");
+  const [assessmentResult, setAssessmentResult] =
+    useState<AssessmentResult | null>(null);
+  const [scoringUnavailable, setScoringUnavailable] = useState(false);
   const [complete, setComplete] = useState(false);
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -97,11 +120,15 @@ export default function Home() {
         const result = (await response.json()) as {
           submissionId?: string;
           error?: string;
+          result?: AssessmentResult | null;
+          scoringUnavailable?: boolean;
         };
         if (!response.ok || !result.submissionId) {
           throw new Error(result.error ?? "Submission gagal.");
         }
         setSubmissionId(result.submissionId);
+        setAssessmentResult(result.result ?? null);
+        setScoringUnavailable(Boolean(result.scoringUnavailable));
       } catch {
         setSubmitError(
           "Jawaban belum berhasil disimpan. Periksa koneksi dan coba lagi.",
@@ -125,6 +152,8 @@ export default function Home() {
     setWriting("");
     setAnswers({});
     setSubmissionId("");
+    setAssessmentResult(null);
+    setScoringUnavailable(false);
     setSubmitError("");
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -262,7 +291,7 @@ export default function Home() {
               onClick={saveAndContinue}
             >
               {submitting
-                ? "Menyimpan jawaban…"
+                ? "Menilai jawaban…"
                 : payload.index + 1 === payload.total
                   ? "Selesaikan jalur"
                   : "Lanjut ke kasus berikutnya"}
@@ -278,12 +307,70 @@ export default function Home() {
       {complete && payload && (
         <section className="complete">
           <p className="eyebrow">{payload.track.name.toUpperCase()}</p>
-          <h1>Selesai.</h1>
-          <p>
-            Anda sudah menjawab {Object.keys(answers).length} kasus. Tidak ada
-            skor instan—jawaban yang kuat dinilai dari diagnosis, kualitas
-            keputusan, dan kemampuan melihat trade-off.
-          </p>
+          {assessmentResult ? (
+            <>
+              <div className="result-head">
+                <div>
+                  <p className="eyebrow">OPERATING ALTITUDE</p>
+                  <h1>{assessmentResult.totalScore}<span>/100</span></h1>
+                </div>
+                <p className="result-band">{assessmentResult.classification}</p>
+              </div>
+              <p className="result-summary">{assessmentResult.summary}</p>
+
+              <div className="result-signals">
+                <article>
+                  <p className="eyebrow">STRONGEST SIGNAL</p>
+                  <p>{assessmentResult.strongestSignal}</p>
+                </article>
+                <article>
+                  <p className="eyebrow">FOCUS AREA</p>
+                  <p>{assessmentResult.focusArea}</p>
+                </article>
+              </div>
+
+              {assessmentResult.multipleChoiceMaxScore > 0 && (
+                <p className="mc-score">
+                  Multiple choice: <strong>{assessmentResult.multipleChoiceScore} / {assessmentResult.multipleChoiceMaxScore}</strong>
+                </p>
+              )}
+
+              <div className="result-cases">
+                <p className="eyebrow">CASE BREAKDOWN</p>
+                {assessmentResult.cases.map((caseResult) => (
+                  <article className="result-case" key={caseResult.id}>
+                    <div className="result-case-top">
+                      <span>{caseResult.id}</span>
+                      <strong>{caseResult.score} / {caseResult.maxScore}</strong>
+                    </div>
+                    <h2>{caseResult.title}</h2>
+                    <p><b>Yang sudah terlihat:</b> {caseResult.strength}</p>
+                    <p><b>Yang perlu diasah:</b> {caseResult.gap}</p>
+                  </article>
+                ))}
+              </div>
+
+              {assessmentResult.criticalMisses > 0 && (
+                <p className="critical-note">
+                  Ada critical miss yang terdeteksi, sehingga skor akhir dibatasi di 69.
+                </p>
+              )}
+            </>
+          ) : (
+            <>
+              <h1>Selesai.</h1>
+              <p>
+                Anda sudah menjawab {Object.keys(answers).length} kasus. Skor
+                otomatis untuk jawaban tertulis belum tersedia saat ini.
+              </p>
+              {scoringUnavailable && (
+                <p className="scoring-note">
+                  Evaluator AI belum dikonfigurasi. Submission Anda tetap tersimpan
+                  dan dapat direview dengan rubric yang sama.
+                </p>
+              )}
+            </>
+          )}
           {submissionId && (
             <p className="submission-reference">
               Referensi submission: <strong>{submissionId}</strong>
