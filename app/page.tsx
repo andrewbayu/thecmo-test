@@ -182,7 +182,7 @@ export default function Home() {
               qualified candidate. I&apos;ll be honest: nggak semua orang bisa
               menjawabnya sampai selesai. Saya menggunakan standard saya sendiri—
               terlebih untuk level VP/Head, kandidat minimal harus on par agar bisa
-              jadi discussion companion. <strong>97% FAILED THE TEST.</strong> You&apos;ve
+              jadi discussion partner. <strong>97% FAILED THE TEST.</strong> You&apos;ve
               been warned. I have quite a high standard :) Dan buat saya, ini bare
               minimum.
             </p>
