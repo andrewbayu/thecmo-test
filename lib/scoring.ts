@@ -13,14 +13,13 @@ export type RoleDimension =
   | "beliefUpdating";
 
 export type SchoolBusDimension =
-  | "boundaryDefinition"
-  | "decomposition"
-  | "measurementDesign"
-  | "errorAwareness"
-  | "validation"
-  | "constraintAdaptation";
+  | "problemReframing"
+  | "originality"
+  | "practicality"
+  | "executionClarity"
+  | "criticalAwareness";
 
-export const scoringVersion = "2026.07-v1";
+export const scoringVersion = "2026.07-v2";
 
 export const commonScale = {
   0: "Miss — tidak memahami inti masalah atau keputusan tidak relevan.",
@@ -67,12 +66,11 @@ export const roleDimensionWeights: Record<
 };
 
 export const schoolBusWeights: Record<SchoolBusDimension, number> = {
-  boundaryDefinition: 0.2,
-  decomposition: 0.2,
-  measurementDesign: 0.2,
-  errorAwareness: 0.15,
-  validation: 0.15,
-  constraintAdaptation: 0.1,
+  problemReframing: 0.25,
+  originality: 0.25,
+  practicality: 0.25,
+  executionClarity: 0.15,
+  criticalAwareness: 0.1,
 };
 
 export const multipleChoiceScoreMaps: Record<string, number[]> = {
@@ -174,24 +172,22 @@ export const writtenRubrics = {
   },
   F1: {
     dimensions: [
-      "boundaryDefinition",
-      "decomposition",
-      "measurementDesign",
-      "errorAwareness",
-      "validation",
-      "constraintAdaptation",
+      "problemReframing",
+      "originality",
+      "practicality",
+      "executionClarity",
+      "criticalAwareness",
     ],
     highSignals: [
-      "Mendefinisikan connected air volume dan boundary yang dihitung.",
-      "Memecah interior envelope, solid displacement, dan inaccessible zones.",
-      "Memilih metode yang sesuai tingkat presisi yang dibutuhkan.",
-      "Membuat error budget dan validasi dengan metode independen.",
-      "Menyesuaikan solusi dengan budget Rp500.000 dan waktu enam jam.",
+      "Mengubah bentuk masalah agar volume dapat diketahui tanpa mengukur setiap bagian satu per satu.",
+      "Menawarkan pendekatan orisinal yang benar-benar dapat menghasilkan ukuran volume.",
+      "Menjelaskan prasyarat, alat, urutan kerja, dan cara memperoleh hasil akhir.",
+      "Menyeimbangkan kreativitas dengan waktu, tenaga, biaya, risiko, dan dampak terhadap bus.",
+      "Mengantisipasi kelemahan metodenya sendiri serta menawarkan mitigasi yang masuk akal.",
     ],
     criticalMisses: [
-      "Hanya memakai panjang × lebar × tinggi tanpa koreksi interior.",
-      "Mengusulkan pembongkaran permanen.",
-      "Tidak menyebut validasi atau sumber error.",
+      "Memberikan ide yang secara fisik tidak dapat menghasilkan ukuran volume.",
+      "Tidak menjelaskan bagaimana metode tersebut menghasilkan angka yang dapat digunakan.",
     ],
   },
 } as const;
