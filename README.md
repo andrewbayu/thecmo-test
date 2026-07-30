@@ -94,15 +94,28 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 
 ## AI Self-Assessment Scoring
 
-Instant scoring for written answers uses the OpenAI Responses API and keeps the
-API key server-side. Configure these variables in the deployment environment:
+Instant scoring for written answers uses Gemini by default and keeps the API
+key server-side. Configure these variables in the deployment environment:
 
 ```bash
-OPENAI_API_KEY=...
-OPENAI_SCORING_MODEL=gpt-5-mini
+EVALUATOR_PROVIDER=gemini
+GEMINI_API_KEY=...
+GEMINI_SCORING_MODEL=gemini-2.5-flash
 ```
 
-`OPENAI_SCORING_MODEL` is optional. Without an API key, submissions are still
+`GEMINI_SCORING_MODEL` is optional. For a no-cost backup when the Gemini quota
+is unavailable, add `OPENROUTER_API_KEY`; the app will use OpenRouter
+automatically after a Gemini failure. You can also select it explicitly:
+
+```bash
+EVALUATOR_PROVIDER=openrouter
+OPENROUTER_API_KEY=...
+OPENROUTER_SCORING_MODEL=openrouter/free
+```
+
+OpenAI remains supported for an existing setup with
+`EVALUATOR_PROVIDER=openai`, `OPENAI_API_KEY`, and an optional
+`OPENAI_SCORING_MODEL`. Without a configured API key, submissions are still
 saved, but the result page will state that written-answer scoring is unavailable
 instead of fabricating a total score.
 
