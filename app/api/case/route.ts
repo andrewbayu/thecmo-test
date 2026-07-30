@@ -235,26 +235,22 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
       },
       {
         id: "S10",
-        title: "Less Friction, Worse Intent",
+        title: "The Lead Magnet That Attracts Everyone",
         brief:
-          "Form lead dipangkas dari enam field menjadi dua field. Form conversion naik hampir dua kali lipat, tetapi sales mengatakan lead baru jauh lebih sulit dikualifikasi.",
+          "Sebuah HR-tech company menawarkan ebook “50 Prompt AI untuk Kerja Lebih Cepat”. Dalam 30 hari, landing page menghasilkan 4.800 download, tetapi hanya 1,6% yang masuk ke booked demo. Sales menyebut mayoritas download tidak relevan dengan produk enterprise mereka.",
         data: [
-          "Field jabatan, perusahaan, kebutuhan, dan timeline dihapus.",
-          "Cost per lead turun 41%.",
-          "Qualified lead rate turun dari 32% menjadi 11%.",
-          "Sales response time tidak berubah.",
-          "Mayoritas lead baru memilih jawaban paling cepat dan tidak membalas follow-up.",
+          "Sebanyak 65% downloader adalah mahasiswa, freelancer, atau perusahaan dengan kurang dari 20 karyawan.",
+          "Produk membutuhkan minimal 200 karyawan dan proses implementasi bersama HR team.",
+          "Form saat ini hanya meminta nama dan email.",
+          "Open rate email nurture mencapai 41%, tetapi click-to-demo hanya 1,2%.",
+          "Sales memiliki kapasitas maksimal enam discovery call per minggu.",
         ],
         question:
-          "Jika hanya satu perubahan boleh diuji minggu depan, mana yang Anda pilih?",
+          "Rancang ulang satu lead magnet dan journey 14 hari yang lebih mungkin menghasilkan qualified conversation. Tentukan ICP, value exchange, informasi yang perlu dikumpulkan, serta metric yang membuktikan perbaikannya.",
         answer: {
-          type: "choice",
-          options: [
-            "Pertahankan dua field dan tambahkan enrichment otomatis setelah lead masuk.",
-            "Kembalikan keenam field karena friction diperlukan untuk menyaring intent.",
-            "Tambahkan satu atau dua pertanyaan high-signal secara bertahap dan nilai cost per qualified lead.",
-            "Pertahankan form, tetapi ubah follow-up agar sales mengumpulkan seluruh informasi yang hilang.",
-          ],
+          type: "write",
+          placeholder:
+            "Fokus pada siapa yang ingin Anda tarik, alasan mereka menukar data, dan bagaimana kualitasnya dibuktikan…",
         },
       },
       {
@@ -352,27 +348,22 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
       },
       {
         id: "M4",
-        title: "Experiment Portfolio",
+        title: "The Rp15 Million Funnel",
         brief:
-          "Ada 14 ide eksperimen, budget terbatas, dan hanya dua slot developer. Semua stakeholder menganggap idenya prioritas.",
+          "Sebuah platform pelatihan B2B perlu menghasilkan 24 qualified conversation dalam 30 hari. Total budget yang tersedia hanya Rp15 juta dan tim tidak boleh mengandalkan paid media dalam skala besar.",
         data: [
-          "Ide tersebar di acquisition, conversion, dan retention.",
-          "Beberapa ide tidak memiliki baseline yang valid.",
-          "Eksperimen berpotensi tinggi membutuhkan enam minggu.",
-          "Ada quick win dengan dampak kecil tetapi kepastian tinggi.",
-          "CEO menginginkan revenue signal dalam 30 hari.",
-          "Eksperimen terbesar gagal pada minggu kedua.",
+          "Produk bernilai Rp120 juta per tahun dan paling kuat untuk perusahaan dengan 300–1.000 karyawan.",
+          "Ada 1.800 mantan lead di email list dan founder memiliki 11.000 koneksi LinkedIn yang relevan, tetapi hanya tiga jam per minggu.",
+          "Tim memiliki satu content writer dan satu designer; tidak ada developer tersedia bulan ini.",
+          "Webinar sebelumnya mendapat 650 pendaftar, tetapi hanya menghasilkan tujuh qualified conversation karena topiknya terlalu luas.",
+          "Sales hanya mampu menjalankan enam discovery call per minggu.",
         ],
         question:
-          "Dua slot mana yang seharusnya dipilih?",
+          "Rancang satu funnel 30 hari dari insight sampai booked call. Tentukan segment, content asset atau lead magnet, distribusi, alokasi Rp15 juta, metric tiap tahap, dan kondisi kapan Anda menghentikan atau mengubah pendekatan.",
         answer: {
-          type: "choice",
-          options: [
-            "Dua eksperimen dengan projected revenue terbesar, meskipun baseline-nya belum lengkap.",
-            "Dua quick wins dengan confidence tertinggi agar revenue signal 30 hari lebih terjamin.",
-            "Satu quick-signal test dan satu high-upside test, masing-masing dengan baseline, learning goal, dan kill criteria.",
-            "Satu permintaan CEO dan satu ide dari tim, agar dukungan stakeholder tetap terjaga.",
-          ],
+          type: "write",
+          placeholder:
+            "Buat satu alur yang fokus, bukan daftar channel. Jelaskan keputusan budget dan decision gate Anda…",
         },
       },
       {
@@ -538,27 +529,22 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
       },
       {
         id: "H4",
-        title: "Resonance Is Not the Constraint",
+        title: "AI Search Visibility Without Content Spam",
         brief:
-          "Sebuah luxury fitness brand memiliki NPS, repeat rate, engagement, dan trial conversion yang tinggi, tetapi revenue datar selama 18 bulan. Konsultan meminta riset psikografis lebih dalam.",
+          "Non-branded organic traffic sebuah B2B software company turun 18%. CEO melihat kompetitor sering muncul dalam AI search experiences dan meminta tim membuat 500 artikel dengan AI dalam satu kuartal.",
         data: [
-          "Flagship gym terisi 94% saat peak, tetapi 43% saat off-peak.",
-          "Sebanyak 90% acquisition berasal dari radius tujuh kilometer.",
-          "Price elasticity belum diuji.",
-          "Corporate partnership masih sangat sedikit.",
-          "Sebanyak 70% budget menargetkan audiens yang sama.",
-          "Lokasi baru membutuhkan capex dengan payback 14 bulan.",
+          "Sebagian besar dari 70 artikel saat ini bersifat generik dan tidak menyertakan expert byline, sumber primer, atau pengalaman pelanggan.",
+          "Customer Success memiliki daftar lebih dari 200 pertanyaan implementasi yang berulang dari klien, tetapi belum dipublikasikan.",
+          "Prospek enterprise sering menanyakan comparison, implementation risk, dan evidence of ROI sebelum berbicara dengan sales.",
+          "Tim hanya mampu menghasilkan 12 content asset substansial dalam 90 hari.",
+          "Branded search naik, tetapi qualified organic pipeline belum diukur secara konsisten.",
         ],
         question:
-          "Jika hanya satu keputusan dapat dijalankan kuartal ini, mana yang Anda pilih?",
+          "Tulis memo 90 hari untuk CEO: apakah Anda menyetujui rencana 500 artikel? Jelaskan content system yang akan dibangun, apa yang tidak dilakukan, dan bagaimana visibility di AI search dihubungkan ke qualified demand.",
         answer: {
-          type: "choice",
-          options: [
-            "Uji pricing lebih dulu karena utilisasi peak menunjukkan willingness to pay yang belum dimaksimalkan.",
-            "Bangun demand off-peak melalui product/partnership baru sebelum menambah kapasitas.",
-            "Mulai lokasi baru karena flagship hampir penuh saat peak dan payback hanya 14 bulan.",
-            "Perluas acquisition di luar radius tujuh kilometer untuk mengurangi ketergantungan pasar lokal.",
-          ],
+          type: "write",
+          placeholder:
+            "Berikan keputusan yang tegas. Bedakan content yang bernilai dari content yang hanya menambah volume…",
         },
       },
       {
