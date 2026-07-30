@@ -1,6 +1,6 @@
 # The CMO Test — Scoring System
 
-Versi rubric: `2026.07-v1`
+Versi rubric: `2026.07-v2`
 
 ## Prinsip
 
@@ -54,12 +54,24 @@ prioritization, dan systems thinking.
 
 | Dimension | Bobot |
 |---|---:|
-| Boundary Definition | 20% |
-| Decomposition | 20% |
-| Measurement Design | 20% |
-| Error Awareness | 15% |
-| Validation | 15% |
-| Constraint Adaptation | 10% |
+| Problem Reframing | 25% |
+| Originality | 25% |
+| Practicality | 25% |
+| Execution Clarity | 15% |
+| Critical Awareness | 10% |
+
+The School Bus adalah tes creative problem solving, bukan tes engineering atau
+akurasi estimasi. Tidak ada satu jawaban baku. Reviewer menilai apakah kandidat
+dapat mengubah bentuk masalah, menemukan metode yang tidak obvious, dan tetap
+menjelaskan cara eksekusinya secara masuk akal.
+
+Metode manual seperti mengukur setiap bidang dengan penggaris dapat menghasilkan
+angka, tetapi mendapat sinyal rendah jika lambat, kompleks, atau tidak practical.
+Sebaliknya, pendekatan transformasional—misalnya menjadikan kabin sebagai wadah
+ukur—mendapat sinyal tinggi apabila kandidat menjelaskan prasyarat seperti
+sealing, proses pengisian, air pocket, cara mengukur material yang masuk, risiko,
+dan mitigasinya. Contoh tersebut bukan jawaban wajib maupun satu-satunya jawaban
+yang dapat memperoleh skor tinggi.
 
 ## Classification
 
