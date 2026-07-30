@@ -13,6 +13,28 @@ type Case = {
   answer: Answer;
 };
 
+const schoolBusCase: Case = {
+  id: "F1",
+  title: "The School Bus",
+  brief:
+    "Bayangkan sebuah bus sekolah kosong. Tidak ada penumpang atau barang bawaan, tetapi seluruh komponen interior normal tetap terpasang: kursi, setir, dashboard, handrail, panel, dan lainnya. Tugas Anda adalah mengukur volume ruang kosong di dalam bus tersebut sedetail dan seakurat mungkin.",
+  data: [
+    "Bentuk interior tidak beraturan dan memiliki banyak komponen di dalam envelope.",
+    "Sebagian area tidak terlihat langsung oleh alat pemindai.",
+    "Kabin tidak sepenuhnya kedap udara.",
+    "Membongkar atau memodifikasi interior secara permanen tidak diizinkan.",
+    "Dua metode pengukuran dapat menghasilkan selisih hingga 1,7%.",
+    "Budget hanya Rp500.000, waktu enam jam, dan hasil cukup untuk early engineering decision.",
+  ],
+  question:
+    "Bagaimana Anda mendefinisikan ruang kosong, mengukurnya, menghitung error, dan memvalidasi hasilnya dalam batasan tersebut?",
+  answer: {
+    type: "write",
+    placeholder:
+      "Jelaskan boundary, decomposition, metode pengukuran, error budget, validasi, dan penyesuaian terhadap constraint…",
+  },
+};
+
 const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
   specialist: {
     name: "The Specialist Track",
@@ -586,15 +608,16 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Jalur tidak ditemukan." }, { status: 404 });
   }
 
+  const cases = [...track.cases, schoolBusCase];
   const rawIndex = Number(request.nextUrl.searchParams.get("index") ?? "0");
   const index = Number.isInteger(rawIndex)
-    ? Math.min(Math.max(rawIndex, 0), track.cases.length - 1)
+    ? Math.min(Math.max(rawIndex, 0), cases.length - 1)
     : 0;
 
   return NextResponse.json({
     track: { id: trackKey, name: track.name, level: track.level },
-    case: track.cases[index],
+    case: cases[index],
     index,
-    total: track.cases.length,
+    total: cases.length,
   });
 }
