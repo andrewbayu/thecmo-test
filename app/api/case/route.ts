@@ -17,21 +17,14 @@ const schoolBusCase: Case = {
   id: "F1",
   title: "The School Bus",
   brief:
-    "Bayangkan sebuah bus sekolah kosong. Tidak ada penumpang atau barang bawaan, tetapi seluruh komponen interior normal tetap terpasang: kursi, setir, dashboard, handrail, panel, dan lainnya. Tugas Anda adalah mengukur volume ruang kosong di dalam bus tersebut sedetail dan seakurat mungkin.",
-  data: [
-    "Bentuk interior tidak beraturan dan memiliki banyak komponen di dalam envelope.",
-    "Sebagian area tidak terlihat langsung oleh alat pemindai.",
-    "Kabin tidak sepenuhnya kedap udara.",
-    "Membongkar atau memodifikasi interior secara permanen tidak diizinkan.",
-    "Dua metode pengukuran dapat menghasilkan selisih hingga 1,7%.",
-    "Budget hanya Rp500.000, waktu enam jam, dan hasil cukup untuk early engineering decision.",
-  ],
+    "Bayangkan ada sebuah bus sekolah dalam keadaan kosong. Seluruh bagian dan interior bus tetap berada di tempatnya.",
+  data: [],
   question:
-    "Bagaimana Anda mendefinisikan ruang kosong, mengukurnya, menghitung error, dan memvalidasi hasilnya dalam batasan tersebut?",
+    "Bagaimana cara Anda mengetahui volume ruang kosong di dalam bus tersebut? Jelaskan metode yang akan Anda gunakan dan bagaimana Anda menjalankannya.",
   answer: {
     type: "write",
     placeholder:
-      "Jelaskan boundary, decomposition, metode pengukuran, error budget, validasi, dan penyesuaian terhadap constraint…",
+      "Tidak ada satu jawaban baku. Jelaskan cara berpikir dan langkah yang akan Anda lakukan…",
   },
 };
 
