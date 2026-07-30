@@ -19,7 +19,7 @@ export type SchoolBusDimension =
   | "executionClarity"
   | "criticalAwareness";
 
-export const scoringVersion = "2026.07-v3";
+export const scoringVersion = "2026.07-v4";
 
 export const commonScale = {
   0: "Miss — tidak memahami inti masalah atau keputusan tidak relevan.",
@@ -76,9 +76,6 @@ export const schoolBusWeights: Record<SchoolBusDimension, number> = {
 export const multipleChoiceScoreMaps: Record<string, number[]> = {
   S2: [2, 2, 4, 1],
   S3: [2, 4, 1, 2],
-  S10: [2, 2, 4, 2],
-  M4: [2, 3, 4, 2],
-  H4: [3, 4, 2, 3],
 };
 
 export const writtenRubrics = {
@@ -134,6 +131,25 @@ export const writtenRubrics = {
       "Mempertahankan manipulasi yang terbukti meningkatkan complaint tanpa mitigasi.",
     ],
   },
+  S10: {
+    dimensions: [
+      "informationSelection",
+      "problemFraming",
+      "technicalJudgment",
+      "commercialJudgment",
+      "prioritization",
+    ],
+    highSignals: [
+      "Memilih ICP berdasarkan sales fit dan buying context, bukan sekadar volume download.",
+      "Mengubah value exchange dari konten generik menjadi asset yang membantu masalah spesifik ICP.",
+      "Memilih progressive qualification yang mengurangi noise tanpa menciptakan friction buta.",
+      "Menghubungkan nurturing ke discovery call dengan mempertimbangkan kapasitas sales.",
+      "Menggunakan cost per qualified conversation atau pipeline quality sebagai metric utama.",
+    ],
+    criticalMisses: [
+      "Mengoptimalkan download atau email open rate tanpa memperbaiki relevance terhadap ICP.",
+    ],
+  },
   M2: {
     dimensions: ["commercialJudgment", "prioritization", "systemsThinking"],
     highSignals: [
@@ -151,6 +167,26 @@ export const writtenRubrics = {
       "Menghubungkan marketing dan sales pada shared outcome.",
     ],
     criticalMisses: ["Menetapkan SLA sepihak tanpa definisi qualification."],
+  },
+  M4: {
+    dimensions: [
+      "informationSelection",
+      "problemFraming",
+      "commercialJudgment",
+      "prioritization",
+      "systemsThinking",
+      "beliefUpdating",
+    ],
+    highSignals: [
+      "Memilih satu segment dan job-to-be-done yang cukup sempit untuk dieksekusi dalam 30 hari.",
+      "Merangkai asset, distribusi, qualification, dan booked call sebagai satu funnel utuh.",
+      "Memanfaatkan owned audience dan founder time sebagai constraint yang harus dijaga, bukan asumsi tanpa batas.",
+      "Membuat alokasi budget berbasis fungsi serta metrik tahap awal sampai qualified conversation.",
+      "Menyebut decision gate yang jelas untuk mengubah angle, channel, atau menghentikan investasi.",
+    ],
+    criticalMisses: [
+      "Menyusun daftar channel tanpa satu conversion path yang jelas atau tanpa mempertimbangkan kapasitas sales.",
+    ],
   },
   M8: {
     dimensions: [
@@ -210,6 +246,26 @@ export const writtenRubrics = {
       "Menyatakan confidence dan reversal condition.",
     ],
     criticalMisses: ["Memilih investasi sebelum menguji constraint utama."],
+  },
+  H4: {
+    dimensions: [
+      "informationSelection",
+      "problemFraming",
+      "commercialJudgment",
+      "prioritization",
+      "systemsThinking",
+      "beliefUpdating",
+    ],
+    highSignals: [
+      "Menolak content volume sebagai tujuan dan memberi keputusan yang tegas terhadap rencana 500 artikel.",
+      "Mengubah pertanyaan implementasi, expert experience, bukti pelanggan, dan sumber primer menjadi content system yang defensible.",
+      "Memperkuat fondasi discovery tanpa menganggap AIO, AEO, atau GEO sebagai taktik terpisah dari useful content dan SEO dasar.",
+      "Memilih sedikit asset substansial dengan ownership, distribution, dan maintenance yang jelas.",
+      "Menghubungkan visibility dengan qualified demand, assisted pipeline, dan learning loop; bukan hanya traffic atau citation count.",
+    ],
+    criticalMisses: [
+      "Merekomendasikan produksi massal artikel AI generik untuk memanipulasi visibility tanpa added value atau evidence.",
+    ],
   },
   H7: {
     dimensions: [
