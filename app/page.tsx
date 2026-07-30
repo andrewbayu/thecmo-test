@@ -2,30 +2,246 @@
 
 import { useState } from "react";
 
-type View = "home" | "case" | "commit" | "update" | "results";
+type CaseFile = {
+  id: string;
+  title: string;
+  category: string;
+};
 
-const intel = [
-  { key: "margin", label: "Ekonomi unit", body: "Margin kontribusi turun dari 34% menjadi 21% dalam enam bulan. Penurunan terkonsentrasi pada tier gratis ongkir." },
-  { key: "retention", label: "Retensi pelanggan", body: "Retensi 90 hari stabil di 42%. Retensi cohort tidak berubah di semua kanal akuisisi." },
-  { key: "logistics", label: "Operasional fulfilment", body: "Rata-rata waktu pengiriman bertambah 0,6 hari. Surcharge carrier naik 18% pada periode yang sama." },
-  { key: "market", label: "Posisi pasar", body: "Dua kompetitor kategori mulai menawarkan gratis ongkir di atas Rp350 ribu. Janji pengiriman yang mereka iklankan tidak berubah." },
-  { key: "promo", label: "Aktivitas promosi", body: "Frekuensi diskon naik 27%. Pesanan dengan diskon memiliki margin kontribusi 12 poin lebih rendah." },
-];
-const scores = [["Seleksi informasi",86],["Pembingkaian masalah",82],["Penalaran kausal",78],["Pertimbangan komersial",88],["Pemikiran sistem",73],["Kualitas keputusan",84],["Pembaruan keyakinan",91],["Komunikasi",79]];
+type CaseData = {
+  id: string;
+  title: string;
+  level: string;
+  brief: string;
+  question: string;
+  credits: number;
+  files: CaseFile[];
+};
+
+type OpenedFile = CaseFile & { content: string };
+type Stage = "intro" | "case" | "shock" | "complete";
 
 export default function Home() {
-  const [view, setView] = useState<View>("home"); const [revealed, setRevealed] = useState<string[]>([]); const [query, setQuery] = useState(""); const [openIntel, setOpenIntel] = useState<string | null>(null); const [decision, setDecision] = useState(""); const [changed, setChanged] = useState<string | null>(null);
-  const credits = 5 - revealed.length; const current = intel.find((i) => i.key === openIntel); const progress = view === "case" ? 1 : view === "commit" ? 2 : view === "update" ? 3 : view === "results" ? 4 : 0;
-  function ask(question?: string) { const text = (question || query).toLowerCase(); const match = intel.find((item) => text.includes(item.key) || text.includes(item.label.split(" ")[0].toLowerCase())) || intel.find((item) => !revealed.includes(item.key)); if (!match || credits === 0) return; setRevealed([...revealed, match.key]); setOpenIntel(match.key); setQuery(""); }
-  const shell = (content: React.ReactNode) => <main className="app-shell"><header className="topbar"><button className="wordmark" onClick={() => setView("home")}>THE CMO TEST</button><div className="top-meta">by Aditya Bayu</div></header>{view !== "home" && <div className="progress"><span>SIMULASI 01 / 13</span><div className="progress-line"><i style={{width: `${progress * 25}%`}} /></div><span>{progress === 1 ? "INVESTIGASI" : progress === 2 ? "KEPUTUSAN" : progress === 3 ? "PEMBARUAN" : progress === 4 ? "HASIL" : "BRIEF"}</span></div>}{content}</main>;
+  const [stage, setStage] = useState<Stage>("intro");
+  const [caseData, setCaseData] = useState<CaseData | null>(null);
+  const [openedFiles, setOpenedFiles] = useState<OpenedFile[]>([]);
+  const [activeFile, setActiveFile] = useState<OpenedFile | null>(null);
+  const [answer, setAnswer] = useState("");
+  const [shock, setShock] = useState("");
+  const [followUp, setFollowUp] = useState("");
+  const [loadingFile, setLoadingFile] = useState<string | null>(null);
 
-  if (view === "home") return shell(<><section className="hero"><div className="eyebrow">ASSESSMENT UNTUK MARKETING LEADERS <b>01—13</b></div><h1>THE CMO<br/><em>TEST</em></h1><div className="hero-bottom"><p><strong>by Aditya Bayu</strong><br/>Bukan tes pengetahuan atau personality test. Ini adalah standar untuk melihat bagaimana seorang pemimpin marketing memetakan masalah, mengajukan pertanyaan, dan mengambil keputusan saat informasi belum lengkap.</p><button className="primary" onClick={() => setView("case")}>MULAI TES <span>→</span></button></div></section><section className="principles"><div><span>0,7%</span><h3>Yang lolos sejauh ini</h3><p>Secara statistik, hanya 0,7% kandidat yang lolos. Ini bukan tes untuk mengonfirmasi apa yang sudah Anda ketahui.</p></div><div><span>01</span><h3>Kasus nyata, standar nyata</h3><p>Seluruh simulasi berangkat dari kasus nyata yang sudah saya selesaikan sendiri.</p></div><div><span>02</span><h3>Untuk pemimpin marketing</h3><p>Dibuat untuk menguji kandidat di level Head, VP, hingga C-level Marketing.</p></div></section></>);
+  async function startCase() {
+    const response = await fetch("/api/case");
+    const payload = await response.json();
+    setCaseData(payload.case);
+    setStage("case");
+  }
 
-  if (view === "results") return shell(<section className="results"><span className="eyebrow">TES SELESAI · AUDIT ID CMO-260730-018</span><h2>Profil<br/><em>operasi Anda.</em></h2><div className="result-grid"><div className="index"><span>CMO INDEX</span><strong>84<span>.6</span></strong><b>CMO OPERATOR</b><p>Pertimbangan komersial kuat, dengan disiplin tinggi dalam memperbarui keyakinan berdasarkan bukti.</p><div className="peer">KESESUAIAN DENGAN STANDAR <b>91%</b><span>PEER+</span></div></div><div className="scorecard">{scores.map(([label,score])=><div className="score" key={String(label)}><span>{label}</span><div><i style={{width:`${score}%`}} /></div><b>{score}</b></div>)}</div></div><div className="results-actions"><button className="outline" onClick={()=>setView("home")}>KEMBALI KE AWAL</button><button className="primary">UNDUH REKAM TES <span>↓</span></button></div></section>);
+  async function openFile(file: CaseFile) {
+    const existing = openedFiles.find((item) => item.id === file.id);
+    if (existing) {
+      setActiveFile(existing);
+      return;
+    }
+    if (!caseData || openedFiles.length >= caseData.credits) return;
 
-  if (view === "update") return shell(<section className="case-layout"><aside><span className="eyebrow">BUKTI BARU</span><h2>Kendala dari<br/><em>supplier.</em></h2><p>Setelah keputusan Anda dikunci, carrier memberi tahu bahwa harga surcharge bersifat kontraktual untuk dua kuartal ke depan.</p><div className="shock"><span>TERUNGKAP SETELAH KEPUTUSAN</span><b>Surcharge tidak dapat dinegosiasikan atau dihentikan sebelum Q3.</b></div></aside><section className="workspace"><span className="eyebrow">PEMBARUAN KEYAKINAN</span><h3>Apakah bukti ini mengubah<br/>keputusan Anda?</h3><div className="choice-grid"><button className={changed === "no" ? "selected" : ""} onClick={()=>setChanged("no")}>TIDAK — KEPUTUSAN TETAP<span>Akar masalah dan respons tetap valid.</span></button><button className={changed === "yes" ? "selected" : ""} onClick={()=>setChanged("yes")}>YA — SAYA AKAN UBAH<span>Kendala baru ini mengubah tindakan secara berarti.</span></button></div><label>JELASKAN PERTIMBANGAN ANDA<textarea placeholder="Jelaskan secara tepat apa yang berubah—atau mengapa tidak—beserta implikasinya." /></label><button className="primary end" disabled={!changed} onClick={()=>setView("results")}>KIRIM POSISI AKHIR <span>→</span></button></section></section>);
+    setLoadingFile(file.id);
+    const response = await fetch("/api/case", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "open_file", fileId: file.id }),
+    });
+    const payload = await response.json();
+    const opened = { ...file, content: payload.content };
+    setOpenedFiles((current) => [...current, opened]);
+    setActiveFile(opened);
+    setLoadingFile(null);
+  }
 
-  if (view === "commit") return shell(<section className="commit"><div className="commit-title"><span className="eyebrow">REKAM KEPUTUSAN · TERKUNCI SETELAH DIKIRIM</span><h2>Ambil<br/><em>keputusannya.</em></h2><p>Anda sudah menginvestigasi {revealed.length} dari 5 jalur yang tersedia. Konteks tersisa tidak lagi tersedia setelah keputusan dikirim.</p></div><div className="form"><label>01 — DIAGNOSIS<textarea placeholder="Apa yang sebenarnya terjadi? Nyatakan masalah inti, bukan gejalanya." /></label><label>02 — KEPUTUSAN<textarea value={decision} onChange={e=>setDecision(e.target.value)} placeholder="Apa tindakan bisnis berikutnya? Buat spesifik." /></label><label>03 — PERTIMBANGAN<textarea placeholder="Hubungkan bukti, mekanisme, dan hasil komersial yang diharapkan." /></label><div className="form-split"><label>TINGKAT KEYAKINAN <div className="confidence"><input type="range" defaultValue="70"/><span>70%</span></div></label><label>FAKTOR PEMBALIK<input placeholder="Satu fakta yang akan mengubah keputusan saya" /></label></div><button className="primary end" disabled={!decision} onClick={()=>setView("update")}>KUNCI KEPUTUSAN <span>→</span></button></div></section>);
+  async function submitAnswer() {
+    const response = await fetch("/api/case", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "submit" }),
+    });
+    const payload = await response.json();
+    setShock(payload.shock);
+    setStage("shock");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
-  return shell(<section className="case-layout"><aside><span className="eyebrow">SIMULASI 01 · 28 MENIT</span><h2>Margin yang<br/><em>tertekan.</em></h2><p>Vela, retailer home goods mid-market, mencatat pertumbuhan revenue 31% year-over-year. Namun operating margin turun tajam. CEO meminta rekomendasi sebelum rapat board berikutnya.</p><dl><div><dt>REVENUE</dt><dd>+31% YoY</dd></div><div><dt>OPERATING MARGIN</dt><dd className="negative">−13 pts</dd></div><div><dt>JENDELA KEPUTUSAN</dt><dd>14 hari</dd></div></dl><div className="rule"><b>TUGAS ANDA</b> Temukan apa yang penting. Anda dapat menginvestigasi lima jalur informasi sebelum mengambil keputusan.</div></aside><section className="workspace"><div className="workspace-top"><span className="eyebrow">RUANG INVESTIGASI</span><b>{credits} <small>KREDIT TERSISA</small></b></div><h3>Apa yang perlu<br/>Anda ketahui?</h3><div className="inquiry"><input value={query} onChange={e=>setQuery(e.target.value)} onKeyDown={e=>e.key === "Enter" && ask()} placeholder="Ajukan pertanyaan tentang bisnis…"/><button onClick={()=>ask()}>TANYAKAN →</button></div><div className="prompt-list"><span>JALUR INVESTIGASI TERSEDIA</span>{intel.map(item=><button key={item.key} disabled={revealed.includes(item.key) || credits===0} onClick={()=>ask(item.label)}>{revealed.includes(item.key) ? "✓" : "○"} {item.label}<i>{revealed.includes(item.key) ? "TERBUKA" : "MINTA"}</i></button>)}</div>{current && <div className="intel-card"><span>CASE FILE / {String(revealed.length).padStart(2,"0")}</span><button onClick={()=>setOpenIntel(null)}>×</button><h4>{current.label}</h4><p>{current.body}</p></div>}<button className="primary end" onClick={()=>setView("commit")}>LANJUT KE KEPUTUSAN <span>→</span></button></section></section>);
+  return (
+    <main className="app-shell">
+      <header className="topbar">
+        <button className="wordmark" onClick={() => setStage("intro")}>
+          THE CMO TEST
+        </button>
+        <span>by Aditya Bayu</span>
+      </header>
+
+      {stage === "intro" && (
+        <section className="intro">
+          <div className="case-label">CASE-BASED MARKETING ASSESSMENT</div>
+          <h1>THE CMO<br />TEST</h1>
+          <div className="intro-bottom">
+            <div>
+              <strong>by Aditya Bayu</strong>
+              <p>
+                Anda akan menerima sebuah kasus bisnis dan sejumlah berkas
+                pendukung. Tidak semua berkas dapat dibuka. Pilih data yang
+                paling relevan, bentuk diagnosis, lalu ambil keputusan.
+              </p>
+            </div>
+            <button className="primary" onClick={startCase}>
+              BUKA CASE FILE <span>→</span>
+            </button>
+          </div>
+        </section>
+      )}
+
+      {stage === "case" && caseData && (
+        <div className="case-room">
+          <div className="case-status">
+            <span>CASE FILE 01</span>
+            <span>{caseData.level}</span>
+            <span>{openedFiles.length}/{caseData.credits} BERKAS DIBUKA</span>
+          </div>
+
+          <section className="situation">
+            <div className="section-number">01</div>
+            <div>
+              <span className="kicker">SITUASI</span>
+              <h2>{caseData.title}</h2>
+              <p>{caseData.brief}</p>
+            </div>
+            <div className="situation-highlights">
+              <div><span>CPL AWAL</span><strong>Rp48.000</strong></div>
+              <div><span>CPL SAAT INI</span><strong>Rp137.000</strong></div>
+              <div><span>PERIODE</span><strong>18 bulan</strong></div>
+              <div><span>MEDIA BUDGET</span><strong>Rp750 juta/bulan</strong></div>
+            </div>
+          </section>
+
+          <section className="evidence-section">
+            <div className="section-heading">
+              <div className="section-number">02</div>
+              <div>
+                <span className="kicker">RUANG BUKTI</span>
+                <h3>Pilih berkas yang perlu Anda baca.</h3>
+                <p>
+                  Anda hanya dapat membuka {caseData.credits} dari{" "}
+                  {caseData.files.length} berkas. Pilihan Anda merupakan bagian
+                  dari penilaian.
+                </p>
+              </div>
+            </div>
+
+            <div className="file-grid">
+              {caseData.files.map((file, index) => {
+                const opened = openedFiles.some((item) => item.id === file.id);
+                const unavailable =
+                  !opened && openedFiles.length >= caseData.credits;
+                return (
+                  <button
+                    key={file.id}
+                    className={`file-card ${opened ? "opened" : ""}`}
+                    disabled={unavailable || loadingFile === file.id}
+                    onClick={() => openFile(file)}
+                  >
+                    <span>FILE {String(index + 1).padStart(2, "0")}</span>
+                    <b>{file.title}</b>
+                    <small>
+                      {loadingFile === file.id
+                        ? "MEMBUKA..."
+                        : opened
+                          ? "SUDAH DIBACA"
+                          : unavailable
+                            ? "TERKUNCI"
+                            : file.category}
+                    </small>
+                  </button>
+                );
+              })}
+            </div>
+
+            {activeFile && (
+              <article className="file-reader">
+                <div className="reader-head">
+                  <span>{activeFile.category}</span>
+                  <button onClick={() => setActiveFile(null)} aria-label="Tutup berkas">×</button>
+                </div>
+                <h4>{activeFile.title}</h4>
+                <p>{activeFile.content}</p>
+              </article>
+            )}
+          </section>
+
+          <section className="answer-section">
+            <div className="section-number">03</div>
+            <div className="answer-copy">
+              <span className="kicker">PERTANYAAN</span>
+              <h3>{caseData.question}</h3>
+            </div>
+            <div className="answer-field">
+              <label htmlFor="answer">JAWABAN ANDA</label>
+              <textarea
+                id="answer"
+                value={answer}
+                onChange={(event) => setAnswer(event.target.value)}
+                placeholder="Tuliskan diagnosis, keputusan, dan rencana Anda secara ringkas..."
+              />
+              <div className="answer-footer">
+                <span>{answer.length} karakter</span>
+                <button
+                  className="primary"
+                  disabled={answer.trim().length < 40}
+                  onClick={submitAnswer}
+                >
+                  KUNCI JAWABAN <span>→</span>
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
+
+      {stage === "shock" && (
+        <section className="shock-screen">
+          <span className="case-label">INFORMASI BARU · SETELAH JAWABAN DIKUNCI</span>
+          <h2>{shock}</h2>
+          <div className="shock-response">
+            <label htmlFor="follow-up">APAKAH KEPUTUSAN ANDA BERUBAH?</label>
+            <textarea
+              id="follow-up"
+              value={followUp}
+              onChange={(event) => setFollowUp(event.target.value)}
+              placeholder="Jelaskan apa yang berubah, apa yang tetap, dan KPI alternatif yang Anda usulkan..."
+            />
+            <button
+              className="primary"
+              disabled={followUp.trim().length < 30}
+              onClick={() => setStage("complete")}
+            >
+              KIRIM JAWABAN AKHIR <span>→</span>
+            </button>
+          </div>
+        </section>
+      )}
+
+      {stage === "complete" && (
+        <section className="complete-screen">
+          <span className="case-label">CASE FILE 01 · SELESAI</span>
+          <h2>Jawaban Anda<br />sudah dikunci.</h2>
+          <p>
+            Penilaian melihat kualitas data yang Anda pilih, ketepatan diagnosis,
+            keputusan, dan cara Anda merespons informasi baru.
+          </p>
+          <button className="outline" onClick={() => window.location.reload()}>
+            KEMBALI KE AWAL
+          </button>
+        </section>
+      )}
+    </main>
+  );
 }
