@@ -92,6 +92,20 @@ actions tied to the current ChatGPT user. Leave public content anonymous.
 - `npm test`: build the starter and verify its rendered loading skeleton
 - `npm run db:generate`: generate Drizzle migrations after schema changes
 
+## AI Self-Assessment Scoring
+
+Instant scoring for written answers uses the OpenAI Responses API and keeps the
+API key server-side. Configure these variables in the deployment environment:
+
+```bash
+OPENAI_API_KEY=...
+OPENAI_SCORING_MODEL=gpt-5-mini
+```
+
+`OPENAI_SCORING_MODEL` is optional. Without an API key, submissions are still
+saved, but the result page will state that written-answer scoring is unavailable
+instead of fabricating a total score.
+
 ## Learn More
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)
