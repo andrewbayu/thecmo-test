@@ -89,13 +89,24 @@ export default function Home() {
 
   async function loadCase(track: TrackId, index: number) {
     setLoading(true);
-    const response = await fetch(`/api/case?track=${track}&index=${index}`);
-    const nextPayload = (await response.json()) as Payload;
-    setPayload(nextPayload);
-    setChoice(null);
-    setWriting("");
-    setLoading(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setSubmitError("");
+    try {
+      const response = await fetch(`/api/case?track=${track}&index=${index}`);
+      if (!response.ok) {
+        throw new Error("Gagal memuat kasus. Silakan periksa koneksi dan coba lagi.");
+      }
+      const nextPayload = (await response.json()) as Payload;
+      setPayload(nextPayload);
+      setChoice(null);
+      setWriting("");
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "Gagal memuat kasus.",
+      );
+    } finally {
+      setLoading(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   }
 
   async function saveAndContinue() {
@@ -283,7 +294,10 @@ export default function Home() {
                   onChange={(event) => setWriting(event.target.value)}
                   placeholder={payload.case.answer.placeholder}
                 />
-                <span>{writing.length} karakter</span>
+                <span>
+                  {writing.trim().length} karakter{" "}
+                  {writing.trim().length < 40 ? "(minimal 40 karakter)" : ""}
+                </span>
               </div>
             )}
 

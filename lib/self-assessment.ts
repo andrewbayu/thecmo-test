@@ -66,6 +66,14 @@ export const activeCaseContext: Record<
   string,
   { title: string; task: string }
 > = {
+  S2: {
+    title: "Meta Ads: The 64% Click Drop",
+    task: "Pilih keputusan pertama yang paling dapat dipertanggungjawabkan saat outbound clicks turun 64% tapi messaging conversations naik 95%.",
+  },
+  S3: {
+    title: "The Winning Creative Trap",
+    task: "Pilih keputusan alokasi budget tambahan saat Creative A punya CTR tinggi tapi lead-to-sale rendah dibanding Creative B.",
+  },
   S5: {
     title: "Google Ads: Landing Page Drop",
     task: "Buat hipotesis, urutan tindakan, dan bukti yang dapat mengubah keputusan saat landing-page conversion turun walau CTR/CPC membaik.",
