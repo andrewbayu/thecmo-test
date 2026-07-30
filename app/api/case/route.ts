@@ -69,14 +69,14 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Dashboard masih menggunakan outbound clicks sebagai headline metric.",
         ],
         question:
-          "Apa tindakan teknis pertama yang paling tepat?",
+          "Anda hanya boleh melakukan satu hal sebelum menyentuh campaign. Apa keputusan pertama yang paling dapat dipertanggungjawabkan?",
         answer: {
           type: "choice",
           options: [
-            "Matikan campaign karena outbound clicks turun 64%.",
-            "Kembalikan objective ke Traffic tanpa melihat hasil Messaging.",
-            "Sesuaikan headline metric dengan objective Messaging dan audit definisi link click vs outbound click.",
-            "Naikkan budget karena messaging conversations meningkat.",
+            "Kembalikan objective ke Traffic agar perbandingan bulanannya kembali konsisten.",
+            "Pertahankan campaign, tetapi gunakan link clicks karena penurunannya paling kecil.",
+            "Definisikan ulang primary outcome sesuai objective Messaging, lalu rekonsiliasi metrik sebelum menilai performa.",
+            "Pertahankan dashboard dan tunggu satu bulan penuh agar datanya lebih stabil.",
           ],
         },
       },
@@ -94,14 +94,14 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Saat budget B dinaikkan 3×, CPL memburuk 42%.",
         ],
         question:
-          "Creative mana yang memiliki estimasi biaya per sale lebih efisien, dan bagaimana cara scale-nya?",
+          "Jika tambahan budget harus mulai dialokasikan besok, keputusan mana yang paling kuat?",
         answer: {
           type: "choice",
           options: [
-            "A, karena CPL Rp29.000 selalu lebih penting dari conversion ke sale.",
-            "B, sekitar Rp950.000 per sale; scale bertahap karena datanya masih kecil dan CPL memburuk saat budget dinaikkan.",
-            "A, sekitar Rp580.000 per sale berdasarkan CTR.",
-            "Keduanya sama karena average order value serupa.",
+            "Prioritaskan A karena datanya lebih matang; pertahankan CPL sebagai guardrail utama.",
+            "Prioritaskan B karena estimasi cost per sale sekitar Rp950.000, tetapi naikkan bertahap dan pantau marginal cost karena sampelnya kecil.",
+            "Bagi rata untuk mengurangi risiko salah pilih, lalu gunakan CTR sebagai penentu alokasi berikutnya.",
+            "Tahan seluruh budget sampai B memiliki spend yang sama besar dengan A agar perbandingannya adil.",
           ],
         },
       },
@@ -137,14 +137,14 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Pesan utama iklan tidak muncul di hero landing page.",
           "Search term dan targeting tidak berubah signifikan.",
           "Drop terbesar pada form terjadi di field nomor telepon.",
-          "Setelah speed diperbaiki, conversion pulih ke 4,4%.",
+          "Tidak ada perubahan besar pada attribution setting atau conversion event.",
         ],
         question:
-          "Tuliskan urutan pengecekan teknis dan tiga quick fixes yang Anda jalankan dalam 72 jam.",
+          "Anda punya 72 jam dan hanya satu developer selama empat jam. Apa hipotesis utama, urutan tindakan, dan bukti yang membuat Anda mengubah keputusan?",
         answer: {
           type: "write",
           placeholder:
-            "Mulai dari device, page speed, message match, form, lalu tindakan yang akan Anda lakukan…",
+            "Tuliskan diagnosis dan keputusan Anda. Bedakan fakta, asumsi, serta bukti yang masih perlu dicari…",
         },
       },
       {
@@ -226,15 +226,11 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Repeat purchase cohort diskon lebih rendah dibanding cohort normal.",
         ],
         question:
-          "Metric apa yang harus menjadi dasar keputusan sebelum menjadikan diskon ini always-on?",
+          "Apakah eksperimen ini benar-benar menang? Buat keputusan dan tunjukkan perhitungan atau metric tree yang Anda gunakan. Data tambahan apa yang paling mungkin membalikkan keputusan Anda?",
         answer: {
-          type: "choice",
-          options: [
-            "Conversion rate karena naik dari 2,5% menjadi 4,0%.",
-            "Contribution margin setelah diskon dan refund, lalu dibandingkan per visitor serta per cohort.",
-            "Jumlah transaksi karena menunjukkan demand meningkat.",
-            "CTR iklan karena menentukan berapa banyak orang masuk ke landing page.",
-          ],
+          type: "write",
+          placeholder:
+            "Berikan keputusan, logika ekonomi, dan reversal condition Anda…",
         },
       },
       {
@@ -250,14 +246,14 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Mayoritas lead baru memilih jawaban paling cepat dan tidak membalas follow-up.",
         ],
         question:
-          "Perubahan mana yang paling tepat berdasarkan conversion dan psikologi commitment?",
+          "Jika hanya satu perubahan boleh diuji minggu depan, mana yang Anda pilih?",
         answer: {
           type: "choice",
           options: [
-            "Pertahankan dua field karena conversion rate sudah meningkat.",
-            "Kembalikan semua field sekaligus agar lead malas tersaring.",
-            "Tambahkan kembali satu atau dua high-signal questions dan uji progressive qualification terhadap cost per qualified lead.",
-            "Buat tombol submit lebih besar agar commitment kandidat meningkat.",
+            "Pertahankan dua field dan tambahkan enrichment otomatis setelah lead masuk.",
+            "Kembalikan keenam field karena friction diperlukan untuk menyaring intent.",
+            "Tambahkan satu atau dua pertanyaan high-signal secara bertahap dan nilai cost per qualified lead.",
+            "Pertahankan form, tetapi ubah follow-up agar sales mengumpulkan seluruh informasi yang hilang.",
           ],
         },
       },
@@ -274,15 +270,11 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Creative berbasis customer proof memiliki CTR lebih rendah tetapi purchase rate lebih tinggi.",
         ],
         question:
-          "Keputusan mana yang paling tepat secara psikologi marketing dan performance?",
+          "Apakah creative ini layak dipertahankan? Jelaskan mekanisme psikologis yang bekerja, kerusakan yang mungkin terjadi, dan eksperimen penggantinya.",
         answer: {
-          type: "choice",
-          options: [
-            "Pertahankan countdown karena CTR dan add-to-cart membuktikan urgency bekerja.",
-            "Hentikan false scarcity, gunakan urgency yang nyata dan customer proof, lalu ukur purchase serta refund rate.",
-            "Percepat countdown menjadi lima menit agar fear of missing out lebih kuat.",
-            "Pertahankan creative, tetapi sembunyikan komentar negatif.",
-          ],
+          type: "write",
+          placeholder:
+            "Pisahkan attention, persuasion, trust, dan business outcome dalam jawaban Anda…",
         },
       },
     ],
@@ -330,11 +322,11 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Cabang B meminta budget tambahan, namun hanya 12% slot tersisa.",
         ],
         question:
-          "Buat prinsip dan contoh alokasi budget. Jelaskan perbedaan fairness dan equality kepada CEO.",
+          "CEO memberi Anda 100 unit budget untuk bulan depan. Buat alokasi awal ke lima cabang, nyatakan asumsi yang Anda gunakan, dan tentukan trigger untuk memindahkan budget.",
         answer: {
           type: "write",
           placeholder:
-            "Jelaskan rumus keputusan, constraint kapasitas, dan cara membaginya ke lima cabang…",
+            "Berikan angka alokasi dan alasan di balik setiap keputusan…",
         },
       },
       {
@@ -351,11 +343,11 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Sales menolak SLA karena volume dianggap terlalu tinggi.",
         ],
         question:
-          "Rancang operating agreement 30 hari: stage, SLA, governance, dan mekanisme eskalasinya.",
+          "Besok pagi Anda memimpin pertemuan kedua tim. Keputusan apa yang harus selesai dalam rapat itu, apa yang Anda ubah selama 30 hari, dan bagaimana Anda membuktikan sumber masalah tanpa memihak salah satu tim?",
         answer: {
           type: "write",
           placeholder:
-            "Tuliskan definisi stage, SLA dua arah, owner, cadence, dan mekanisme audit…",
+            "Tuliskan keputusan, cara implementasi, dan evidence yang akan Anda gunakan…",
         },
       },
       {
@@ -372,14 +364,14 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Eksperimen terbesar gagal pada minggu kedua.",
         ],
         question:
-          "Prinsip pemilihan portfolio mana yang paling sehat?",
+          "Dua slot mana yang seharusnya dipilih?",
         answer: {
           type: "choice",
           options: [
-            "Pilih dua ide dengan estimasi revenue terbesar.",
-            "Jalankan ide CEO dan stakeholder paling senior.",
-            "Seimbangkan satu quick signal dan satu high-upside test, dengan baseline serta kill criteria sebelum mulai.",
-            "Jalankan 14 eksperimen sekaligus dengan budget kecil.",
+            "Dua eksperimen dengan projected revenue terbesar, meskipun baseline-nya belum lengkap.",
+            "Dua quick wins dengan confidence tertinggi agar revenue signal 30 hari lebih terjamin.",
+            "Satu quick-signal test dan satu high-upside test, masing-masing dengan baseline, learning goal, dan kill criteria.",
+            "Satu permintaan CEO dan satu ide dari tim, agar dukungan stakeholder tetap terjaga.",
           ],
         },
       },
@@ -468,11 +460,11 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Pada hari ke-10 qualified leads pulih, tetapi sales masih datar.",
         ],
         question:
-          "Susun turnaround 30 hari: diagnosis, quick wins, eksperimen, owner, cadence, dan decision gate.",
+          "Apa tiga keputusan pertama Anda dalam 72 jam? Setelah qualified leads pulih pada hari ke-10 tetapi sales tetap datar, apa yang Anda hentikan, lanjutkan, dan ubah?",
         answer: {
           type: "write",
           placeholder:
-            "Buat rencana hari 1–3, 4–10, dan 11–30 beserta owner dan indikatornya…",
+            "Jelaskan urutan keputusan sebelum dan sesudah informasi hari ke-10…",
         },
       },
     ],
@@ -495,15 +487,11 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Incrementality belum bersih; CEO ingin CPL dijadikan KPI bonus.",
         ],
         question:
-          "Respons board mana yang paling tepat?",
+          "Tulis respons maksimal 150 kata kepada CEO. Putuskan apakah target CPL -50% diterima, ditolak, atau diubah—serta tunjukkan dasar keputusan Anda.",
         answer: {
-          type: "choice",
-          options: [
-            "Terima target CPL -50% agar tim punya target yang jelas.",
-            "Tolak penggunaan CPL tunggal; bangun allowable acquisition cost dari unit economics dan capacity, lalu validasi incrementality.",
-            "Kurangi budget 50% agar CPL otomatis membaik.",
-            "Pertahankan strategi karena downstream conversion naik.",
-          ],
+          type: "write",
+          placeholder:
+            "Berikan keputusan yang bisa dibawa ke board, bukan daftar metric…",
         },
       },
       {
@@ -520,11 +508,11 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Pengeluaran pribadi founder masih bercampur dengan perusahaan.",
         ],
         question:
-          "Apakah bisnis ini benar-benar scaling? Tentukan tiga prioritas dan metrik 90 hari.",
+          "Apakah Anda menyarankan founder mulai fundraising sekarang? Berikan keputusan, diagnosis kualitas pertumbuhan, dan tiga intervensi 90 hari yang paling menentukan.",
         answer: {
           type: "write",
           placeholder:
-            "Berikan diagnosis kualitas growth, tiga prioritas, owner, dan metrik 90 hari…",
+            "Tulis rekomendasi Anda kepada founder dan trade-off yang menyertainya…",
         },
       },
       {
@@ -541,11 +529,11 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Board meminta satu pilihan investasi utama.",
         ],
         question:
-          "Pilih lima pertanyaan berinformasi tinggi, bentuk hipotesis, dan nyatakan tingkat keyakinan sebelum memilih satu investasi.",
+          "Sebelum menyetujui target ini, lima hal apa yang Anda cari tahu terlebih dahulu? Setelah itu, pilih satu growth bet sementara dan jelaskan mengapa Anda belum memilih alternatif lainnya.",
         answer: {
           type: "write",
           placeholder:
-            "Tulis lima pertanyaan, hipotesis pertumbuhan, confidence level, dan pilihan investasi…",
+            "Tunjukkan informasi yang Anda prioritaskan, hipotesis, dan tingkat keyakinan Anda…",
         },
       },
       {
@@ -562,14 +550,14 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Lokasi baru membutuhkan capex dengan payback 14 bulan.",
         ],
         question:
-          "Constraint mana yang harus diprioritaskan?",
+          "Jika hanya satu keputusan dapat dijalankan kuartal ini, mana yang Anda pilih?",
         answer: {
           type: "choice",
           options: [
-            "Resonance: lakukan riset psikografis lebih dalam.",
-            "Distribution/capacity dan monetization: optimalkan off-peak, partnership, pricing, lalu nilai ekspansi.",
-            "Awareness: naikkan budget pada audiens yang sama.",
-            "Creative: ganti seluruh brand message.",
+            "Uji pricing lebih dulu karena utilisasi peak menunjukkan willingness to pay yang belum dimaksimalkan.",
+            "Bangun demand off-peak melalui product/partnership baru sebelum menambah kapasitas.",
+            "Mulai lokasi baru karena flagship hampir penuh saat peak dan payback hanya 14 bulan.",
+            "Perluas acquisition di luar radius tujuh kilometer untuk mengurangi ketergantungan pasar lokal.",
           ],
         },
       },
@@ -636,11 +624,11 @@ const tracks: Record<string, { name: string; level: string; cases: Case[] }> = {
           "Owner dan KPI tidak jelas; CEO ingin semua inisiatif tetap berjalan.",
         ],
         question:
-          "Rancang operating model: prioritas, role, cadence, automation, dan daftar aktivitas yang harus dihentikan.",
+          "Target tidak boleh diturunkan dan headcount tidak bertambah. Dua perubahan organisasi apa yang Anda lakukan terlebih dahulu, keputusan apa yang dipindahkan dari founder, dan pekerjaan apa yang sengaja dihentikan?",
         answer: {
           type: "write",
           placeholder:
-            "Jelaskan struktur ownership, cadence, automation, KPI, dan apa yang Anda hentikan…",
+            "Pilih perubahan paling berdampak dan jelaskan konsekuensinya…",
         },
       },
       {
