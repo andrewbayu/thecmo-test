@@ -148,10 +148,14 @@ export default function Home() {
             <h1>The CMO Test</h1>
             <p className="byline">by Aditya Bayu</p>
             <p className="intro-copy">
-              <strong>Hanya 0,7% kandidat yang lolos.</strong> Kumpulan studi kasus
-              nyata yang saya gunakan untuk hiring Specialist, Manager, Head, dan
-              VP Marketing. Semua kasus sudah pernah saya selesaikan sendiri—saya
-              menggunakan standar yang sama untuk mengukur kandidat.
+              Test ini merupakan study case yang saya buat dari real cases yang
+              sudah saya solve selama 12 tahun, dan saya gunakan untuk mencari
+              qualified candidate. I&apos;ll be honest: nggak semua orang bisa
+              menjawabnya sampai selesai. Saya menggunakan standard saya sendiri—
+              terlebih untuk level VP/Head, kandidat minimal harus on par agar bisa
+              jadi discussion companion. <strong>97% FAILED THE TEST.</strong> You&apos;ve
+              been warned. I have quite a high standard :) Dan buat saya, ini bare
+              minimum.
             </p>
             <div className="assessment-facts" aria-label="Informasi assessment">
               <span>4–6 ROLE CASES</span>
