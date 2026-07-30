@@ -1,6 +1,6 @@
 # The CMO Test — Scoring System
 
-Versi rubric: `2026.07-v2`
+Versi rubric: `2026.07-v3`
 
 ## Prinsip
 
@@ -32,6 +32,16 @@ level.
 Pilihan ganda memiliki score map 0–4 per opsi. Jawaban tertulis dinilai per
 dimension menggunakan anchor di atas. Jawaban generik tidak otomatis mendapat
 nilai tinggi.
+
+Pertanyaan terbuka dinilai dari keputusan dan jejak reasoning yang terlihat:
+kandidat harus membedakan fakta, asumsi, dan hipotesis; memilih prioritas;
+menjelaskan trade-off; serta menyebutkan bukti yang dapat mengubah keputusannya.
+Penggunaan istilah yang terdengar strategis tanpa hubungan sebab-akibat tidak
+dianggap evidence.
+
+Opsi pilihan ganda sengaja dibuat sama-sama masuk akal. Nilai penuh hanya
+diberikan pada opsi dengan framing dan trade-off paling kuat; opsi lain dapat
+memperoleh nilai parsial jika tetap defensible.
 
 ## Bobot dimension per level
 
