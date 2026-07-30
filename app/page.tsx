@@ -129,9 +129,11 @@ export default function Home() {
         setSubmissionId(result.submissionId);
         setAssessmentResult(result.result ?? null);
         setScoringUnavailable(Boolean(result.scoringUnavailable));
-      } catch {
+      } catch (err) {
         setSubmitError(
-          "Jawaban belum berhasil disimpan. Periksa koneksi dan coba lagi.",
+          err instanceof Error && err.message
+            ? err.message
+            : "Jawaban belum berhasil disimpan. Periksa koneksi dan coba lagi.",
         );
         setSubmitting(false);
         return;

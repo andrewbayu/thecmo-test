@@ -60,21 +60,25 @@ export async function POST(request: Request) {
     });
 
     const id = crypto.randomUUID();
-    const { getDb } = await import("@/db");
-    const db = getDb();
-    await db.insert(assessmentSubmissions).values({
-      id,
-      track: payload.track,
-      answers: JSON.stringify(cleanAnswers),
-      multipleChoicePoints,
-      multipleChoiceMaxPoints,
-      status: "scored",
-      scoringVersion,
-      reviewerScores: JSON.stringify(assessmentResult),
-      criticalMisses: assessmentResult.criticalMisses,
-      operatingIndex: assessmentResult.totalScore,
-      classification: assessmentResult.classification,
-    });
+    try {
+      const { getDb } = await import("@/db");
+      const db = getDb();
+      await db.insert(assessmentSubmissions).values({
+        id,
+        track: payload.track,
+        answers: JSON.stringify(cleanAnswers),
+        multipleChoicePoints,
+        multipleChoiceMaxPoints,
+        status: "scored",
+        scoringVersion,
+        reviewerScores: JSON.stringify(assessmentResult),
+        criticalMisses: assessmentResult.criticalMisses,
+        operatingIndex: assessmentResult.totalScore,
+        classification: assessmentResult.classification,
+      });
+    } catch (dbError) {
+      console.warn("assessment_submission_db_failed", dbError);
+    }
 
     return Response.json(
       {
